@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Button, Form } from "antd";
+import Editor from "./components/Editor";
+import Upload from "./components/Uploader";
 
 function App() {
+  // const onSubmit = (event) => {
+  //   event.preventDefault();
+
+  //   setContent("");
+  // };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="App">
+        <Editor />
+        <Upload />
+      </div>
+      <Form>
+        <div style={{ textAlign: "center", margin: "2rem" }}>
+          <Button size="large" htmlType="submit">
+            Submit
+          </Button>
+        </div>
+      </Form>
+    </>
   );
 }
 
