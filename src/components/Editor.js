@@ -1,13 +1,19 @@
 import React, { Component } from "react";
+import styled from "@emotion/styled";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+// import axios, { Axios } from "axios";
 
 class Editor extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: "",
-    };
+  componentDidMount() {
+    //api call
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((res) => res.json())
+      .then((res) =>
+        this.setState({
+          posts: res,
+        })
+      );
   }
 
   modules = {
@@ -45,19 +51,50 @@ class Editor extends Component {
     "link",
     "image",
   ];
+
+  // define react quill component
+  /* <ReactQuill  /> */
+
   render() {
+    // const [mail, setMail] = useState();
+
     return (
-      <div>
-        <ReactQuill
-          theme="snow"
-          modules={this.modules}
-          formats={this.formats}
-          placeholder="Type something"
-          style={{ height: "25vh" }}
-        ></ReactQuill>
-      </div>
+      <>
+        <div>
+          <EditorContainer>
+            <input placeholder="Title" />
+            <ReactQuill
+              onChange={this.onChangeText}
+              // ref={(el) => {
+              //   this.reactQuillRef = el;
+              // }}
+              // ref="editor"
+              theme="snow"
+              modules={this.modules}
+              formats={this.formats}
+              placeholder={"Type Something"}
+              // value={this.state.posts.map((post) => (
+              //   <div key={post.id}>
+              //     {post.id}.{post.title}
+              //   </div>
+              // ))}
+              // readOnly={true}
+              style={{ height: "25vh" }}
+            ></ReactQuill>
+          </EditorContainer>
+        </div>
+      </>
     );
   }
 }
+
+const EditorContainer = styled.div`
+  > input {
+    border: none;
+    outline: none;
+    padding: 18px;
+    font-size: 2em;
+  }
+`;
 
 export default Editor;

@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "@emotion/styled";
 // import "./App.css";
 // import DocViewer from "react-doc-viewer";
 import Uploader from "react-upload-in";
@@ -39,24 +40,49 @@ class Upload extends React.Component {
 
     return (
       <div className="p-32">
-        <Uploader
-          ref={this.uploader}
-          src={files}
-          theme="sky"
-          label="Upload file"
-          buttonText={"Upload"}
-          // action={"https://ej2.syncfusion.com/services/api/uploadbox/Save"}
-          setHeader={{ key: "Authorization", value: "yourtoken" }}
-          filetypes={["png", "jpg", "pdf", "docx"]}
-          image={false}
-          onResult={this.resultUpload.bind(this)}
-          onRemoved={this.onRemoved.bind(this)}
-          hideOnSuccess={true}
-        />
+        <UploaderContainer>
+          <Uploader
+            ref={this.uploader}
+            src={files}
+            theme="sky"
+            label="Add file"
+            // buttonText={""}
+            // action={"https://ej2.syncfusion.com/services/api/uploadbox/Save"}
+            setHeader={{ key: "Authorization", value: "yourtoken" }}
+            filetypes={["png", "jpg", "pdf", "docx"]}
+            image={true}
+            onResult={this.resultUpload.bind(this)}
+            onRemoved={this.onRemoved.bind(this)}
+            hideOnSuccess={true}
+          />
+        </UploaderContainer>
         {/* <DocViewer documents={docs} />; */}
       </div>
     );
   }
 }
+
+const UploaderContainer = styled.div`
+  width: 100%;
+  padding-left: 10%;
+   
+  // > input {
+  //   border: none;
+  //   outline: none;
+  //   padding: 18px;
+  //   font-size: 2em;
+  //   width: 100%;
+  // }
+
+  .ql-toolbar,
+  .ql-container {
+    border: none !important;
+  }
+
+  .quill, .ql-container [
+    font-size: 1em;
+    height: 100%
+  ]
+`;
 
 export default Upload;

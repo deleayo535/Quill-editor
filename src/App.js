@@ -1,6 +1,7 @@
 import "./App.css";
 import { Button, Form } from "antd";
-import Editor from "./components/Editor";
+// import Editor from "./components/Editor";
+import { QuillEdit } from "./components/Quill";
 import Upload from "./components/Uploader";
 
 function App() {
@@ -13,16 +14,17 @@ function App() {
   return (
     <>
       <div className="App">
-        <Editor />
+        {/* <Editor /> */}
+        <QuillEdit />
         <Upload />
       </div>
-      <Form>
-        <div style={{ textAlign: "center", margin: "2rem" }}>
+      {/* <Form>
+        <div style={{ textAlign: "center", margin: "1rem" }}>
           <Button size="large" htmlType="submit">
             Submit
           </Button>
         </div>
-      </Form>
+      </Form> */}
     </>
   );
 }
