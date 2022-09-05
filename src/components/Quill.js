@@ -16,12 +16,12 @@ export function QuillEdit() {
         { indent: "-1" },
         { indent: "+1" },
       ],
-      [{ script: "sub" }, { script: "super" }], // superscript/subscript
-      [{ direction: "rtl" }], // text direction
       [{ color: [] }, { background: [] }], // dropdown with defaults from theme
       [{ align: [] }],
       ["link", "image"],
       ["clean"],
+      // [{ script: "sub" }, { script: "super" }], // superscript/subscript
+      // [{ direction: "rtl" }], // text direction
     ],
   };
 
