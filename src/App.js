@@ -1,8 +1,8 @@
 import "./App.css";
-import { Button, Form } from "antd";
+// import { Button, Form } from "antd";
 // import Editor from "./components/Editor";
 import { QuillEdit } from "./components/Quill";
-import Upload from "./components/Uploader";
+// import Upload from "./components/Uploader";
 
 function App() {
   // const onSubmit = (event) => {
@@ -16,7 +16,7 @@ function App() {
       <div className="App">
         {/* <Editor /> */}
         <QuillEdit />
-        <Upload />
+        {/* <Upload /> */}
       </div>
       {/* <Form>
         <div style={{ textAlign: "center", margin: "1rem" }}>

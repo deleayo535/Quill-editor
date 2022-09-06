@@ -64,25 +64,7 @@ class Upload extends React.Component {
 
 const UploaderContainer = styled.div`
   width: 100%;
-  padding-left: 10%;
-   
-  // > input {
-  //   border: none;
-  //   outline: none;
-  //   padding: 18px;
-  //   font-size: 2em;
-  //   width: 100%;
-  // }
-
-  .ql-toolbar,
-  .ql-container {
-    border: none !important;
-  }
-
-  .quill, .ql-container [
-    font-size: 1em;
-    height: 100%
-  ]
+  height: 100px;
 `;
 
 export default Upload;
