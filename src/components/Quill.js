@@ -14,35 +14,39 @@ export function QuillEdit() {
     );
 
     setPosts(data);
+    // console.log(data);
   };
   useEffect(() => {
     fetchData();
   }, []);
 
-  // const [postForm, setPostForm] = useState({
-  //   title: "",
-  //   body: "",
-  // });
-  // const [selectedPost, setSelectedPost] = useState(null);
+  const [postForm, setPostForm] = useState({
+    title: "",
+    body: "",
+  });
+  const [selectedPost, setSelectedPost] = useState(null);
 
-  // const onChangeTitleHandler = (event) =>
-  //   setPostForm({ ...postForm, title: event.target.value });
+  const onChangeTitleHandler = (value) =>
+    setPostForm({ ...postForm, title: value });
 
-  // const onChangeEditorHandler = (value) =>
-  //   setPostForm((prev) => ({ ...postForm, body: value }));
+  const onChangeEditorHandler = (value) =>
+    setPostForm({ ...postForm, body: value });
 
-  // useEffect(() => {
-  //   // console.log(postForm);
-  // }, [postForm]);
+  const onSelectPost = (post) => () => {
+    setSelectedPost(post);
+    setPostForm({
+      title: post.title,
+      body: post.body,
+    });
 
-  // const onSelectPost = (post) => () => {
-  //   setSelectedPost(post);
-  //   setPostForm({
-  //     title: post.title,
-  //     body: post.body,
-  //   });
-  //   setSelectedPost(post);
-  // };
+    // console.log(post.title, post.body);
+    // setSelectedPost(post);
+  };
+
+  useEffect(() => {
+    // setPostForm();
+    // console.log(postForm);
+  }, [postForm]);
 
   const modules = {
     toolbar: [
@@ -88,7 +92,7 @@ export function QuillEdit() {
             <ul
               key={post.id}
               // className={`post${selectedPost?.id === post.id ? "active" : ""}`}
-              // onClick={onSelectPost(post)}
+              onClick={onSelectPost(post)}
             >
               <div>{post.title}</div>
               <p>{post.body}</p>
@@ -98,19 +102,19 @@ export function QuillEdit() {
       </ListEmail>
       <EditorContainer>
         <input
-          // value={postForm.title}
-          // onChange={onChangeTitleHandler}
+          value={postForm.title}
+          onChange={onChangeTitleHandler}
           // disabled={!selectedPost}
           placeholder="Title"
         />
         <ReactQuill
           theme="snow"
-          // readOnly={!selectedPost}
-          // value={postForm.title}
+          readOnly={!selectedPost}
+          value={postForm.body}
           modules={modules}
           formats={formats}
           // readOnly="true"
-          // onChange={onChangeEditorHandler}
+          onChange={onChangeEditorHandler}
           placeholder="Type Something"
         />
         <Upload />
