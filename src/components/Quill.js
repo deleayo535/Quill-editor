@@ -26,11 +26,16 @@ export function QuillEdit() {
   });
   const [selectedPost, setSelectedPost] = useState(null);
 
-  const onChangeTitleHandler = (value) =>
-    setPostForm({ ...postForm, title: value });
+  const onChangeTitleHandler = (event) =>
+    setPostForm({ ...postForm, title: event.target.value });
 
-  const onChangeEditorHandler = (value) =>
-    setPostForm({ ...postForm, body: value });
+  // const onChangeEditorHandler = (value) =>
+  //   setPostForm({ ...postForm, body: value });
+
+  useEffect(() => {
+    // setPostForm();
+    // console.log(postForm);
+  }, [postForm]);
 
   const onSelectPost = (post) => () => {
     setSelectedPost(post);
@@ -42,11 +47,6 @@ export function QuillEdit() {
     // console.log(post.title, post.body);
     // setSelectedPost(post);
   };
-
-  useEffect(() => {
-    // setPostForm();
-    // console.log(postForm);
-  }, [postForm]);
 
   const modules = {
     toolbar: [
@@ -104,7 +104,7 @@ export function QuillEdit() {
         <input
           value={postForm.title}
           onChange={onChangeTitleHandler}
-          // disabled={!selectedPost}
+          disabled={!selectedPost}
           placeholder="Title"
         />
         <ReactQuill
@@ -114,7 +114,7 @@ export function QuillEdit() {
           modules={modules}
           formats={formats}
           // readOnly="true"
-          onChange={onChangeEditorHandler}
+          // onChange={onChangeEditorHandler}
           placeholder="Type Something"
         />
         <Upload />
