@@ -10,11 +10,12 @@ export function QuillEdit() {
 
   const fetchData = async () => {
     const { data } = await axios.get(
-      "https:jsonplaceholder.typicode.com/posts"
+      // "https:jsonplaceholder.typicode.com/posts"
+      "http://localhost:5000/inbox"
     );
 
-    setPosts(data);
-    // console.log(data);
+    // setPosts(data);
+    console.log(data);
   };
   useEffect(() => {
     fetchData();
@@ -161,7 +162,9 @@ const EditorContainer = styled.div`
     }
   }
 
-  .ql-toolbar,
+  .ql-toolbar {
+    // display: none;
+  }
   .ql-container {
     border: none !important;
   }
