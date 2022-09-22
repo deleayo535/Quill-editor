@@ -6,47 +6,89 @@ import "react-quill/dist/quill.snow.css";
 import Upload from "./Uploader";
 
 export function QuillEdit() {
-  const [posts, setPosts] = useState([]);
+  const [inboxs, setPosts] = useState([]);
 
   const fetchData = async () => {
     const { data } = await axios.get(
       // "https:jsonplaceholder.typicode.com/posts"
       "http://localhost:5000/inbox"
     );
-
-    // setPosts(data);
+    // .then(function (res) {
+    //   // data = JSON.parse(data);
+    // console.log(res.config);
     console.log(data);
+    // });
+
+    setPosts(data);
   };
+
   useEffect(() => {
     fetchData();
   }, []);
 
+  // const newInboxs = inboxs.map(
+  //   (inbox) =>
+  //     inbox
+  //       .trim("")
+  //       // .slice(1, -1)
+  //       .replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "")
+  //       .replace(/\[|\]/gi, "")
+  //       .replace(/(\r\n|\n|\r)/gm, "")
+  //       .replace(/'/g, '"')
+  //       // .replace(/\'/g, "")
+  //       .replace(/[']/g, '"')
+  //       .replace(/\]$/, "")
+  //       .replace(/^\[/, "")
+  //       .replace(/^\s+|\s+$/g, "")
+  //       // .replace(/\\"/g, '\\"')
+  //       // .replace(/\\&/g, "\\&")
+  //       // .replace(/\\r/g, "\\r")
+  //       // .replace(/\\t/g, "\\t")
+  //       // .replace(/\\b/g, "\\b")
+  //       // .replace(/\\f/g, "\\f")
+  //       // .replace(/[\u0000-\u0019]+/g, "")
+  //       // .replace(/\s/g, "")
+  //       .replace(/&quot;/gi, '"')
+  //       .replace(/([{,])(\s*)([A-Za-z0-9_\-]+?)\s*:/g, '$1"$3":')
+  //   // .replace(/['{ }']/g, "")
+
+  //   // .split(";;;")
+  // );
+  // v = inbox.index[0];
+  // var emails = Array.of(newInboxs);
+  // console.log(emails);
+
+  // console.log(newInboxs[0]);
+  // console.log(JSON.parse(newInboxs[0]));
+  // console.log(JSON.parse(newInboxs));
+
   const [postForm, setPostForm] = useState({
-    title: "",
-    body: "",
+    from: "",
+    subject: "",
   });
   const [selectedPost, setSelectedPost] = useState(null);
 
   const onChangeTitleHandler = (event) =>
-    setPostForm({ ...postForm, title: event.target.value });
+    setPostForm({ ...postForm, subject: event.target.value });
 
   // const onChangeEditorHandler = (value) =>
-  //   setPostForm({ ...postForm, body: value });
+  //   setPostForm({ ...postForm, subject: value });
 
   useEffect(() => {
     // setPostForm();
     // console.log(postForm);
   }, [postForm]);
 
-  const onSelectPost = (post) => () => {
-    setSelectedPost(post);
+  const onSelectPost = (inbox) => () => {
+    setSelectedPost(inbox);
+    // ReactQuill.editor.disable();
     setPostForm({
-      title: post.title,
-      body: post.body,
+      from: inbox.from,
+      subject: inbox.subject,
     });
 
-    // console.log(post.title, post.body);
-    // setSelectedPost(post);
+    // console.log(inbox.subject, inbox.from);
+    // setSelectedPost(inbox);
   };
 
   const modules = {
@@ -64,7 +106,7 @@ export function QuillEdit() {
       [{ color: [] }, { background: [] }], // dropdown with defaults from theme
       [{ align: [] }],
       ["link", "image"],
-      ["clean"],
+      // ["clean"],
       // [{ script: "sub" }, { script: "super" }], // superscript/subscript
       // [{ direction: "rtl" }], // text direction
     ],
@@ -85,40 +127,45 @@ export function QuillEdit() {
     "image",
   ];
   // const [] = useState();
+
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", margin: "30px" }}>
       <ListEmail>
-        {posts
-          .map((post) => (
-            <ul
-              key={post.id}
-              // className={`post${selectedPost?.id === post.id ? "active" : ""}`}
-              onClick={onSelectPost(post)}
-            >
-              <div>{post.title}</div>
-              <p>{post.body}</p>
-            </ul>
-          ))
-          .slice(0, 5)}
+        {inboxs.map((inbox) => (
+          <ul
+            // key={inbox.seq}
+            key={inbox.keys}
+            // className={`inbox${selectedPost?.id === inbox.id ? "active" : ""}`}
+            onClick={onSelectPost(inbox)}
+          >
+            <div>
+              {inbox.from}
+              {inbox.subject}
+            </div>
+            {/* <p>{inbox.from}</p> */}
+          </ul>
+        ))}
       </ListEmail>
       <EditorContainer>
         <input
-          value={postForm.title}
-          onChange={onChangeTitleHandler}
-          disabled={!selectedPost}
+          value={postForm.subject}
+          disabled={selectedPost}
           placeholder="Title"
+          onChange={onChangeTitleHandler}
         />
         <ReactQuill
           theme="snow"
-          readOnly={!selectedPost}
-          value={postForm.body}
+          readOnly={selectedPost}
+          value={postForm.from}
           modules={modules}
-          formats={formats}
+          formats={`${!selectedPost ? true : false}`}
+          // formats={formats}
           // readOnly="true"
           // onChange={onChangeEditorHandler}
           placeholder="Type Something"
         />
         <Upload />
+        {/* <Viewer /> */}
       </EditorContainer>
     </div>
   );
@@ -129,18 +176,20 @@ const ListEmail = styled.div`
   padding-top: 10px;
   margin-left: 10px;
   text-align: left;
+  background-color: #eee;
 
   > ul {
-    // cursor: ${(props) => (props.disabled ? "not-allowed;" : "unset")};
     cursor: pointer;
-    background-color: #eee;
+    padding: 10px;
     font-size: 12px;
     margin-bottom: 12px;
+    // borderline-bottom:
 
     > div {
       text-transform: uppercase;
       font-weight: bold;
       font-size: 14px;
+      border-bottom: solid 1px #fff;
     }
   }
 `;

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 // import "./App.css";
 // import DocViewer from "react-doc-viewer";
 import Uploader from "react-upload-in";
+import GoogleDocsViewer from "react-google-docs-viewer";
 
 class Upload extends React.Component {
   state = {
@@ -40,7 +41,13 @@ class Upload extends React.Component {
 
     return (
       <div className="p-32">
+        {/* <GoogleDocsViewer
+          width="60px"
+          height="70px"
+          fileUrl="http://localhost/"
+        /> */}
         <UploaderContainer>
+          {/* </div> */}
           <Uploader
             ref={this.uploader}
             src={files}
