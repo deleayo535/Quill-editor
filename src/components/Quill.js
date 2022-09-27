@@ -63,8 +63,8 @@ export function QuillEdit() {
   // console.log(JSON.parse(newInboxs));
 
   const [postForm, setPostForm] = useState({
-    from: "",
     subject: "",
+    from: "",
   });
   const [selectedPost, setSelectedPost] = useState(null);
 
@@ -82,9 +82,10 @@ export function QuillEdit() {
   const onSelectPost = (inbox) => () => {
     setSelectedPost(inbox);
     // ReactQuill.editor.disable();
+    // modules.toolbar(false);
     setPostForm({
-      from: inbox.from,
       subject: inbox.subject,
+      from: inbox.from,
     });
 
     // console.log(inbox.subject, inbox.from);
@@ -92,6 +93,7 @@ export function QuillEdit() {
   };
 
   const modules = {
+    // toolbar: false,
     toolbar: [
       // [{ header: [1, 2, false] }],
       [{ font: [] }],
@@ -140,7 +142,7 @@ export function QuillEdit() {
           >
             <div>
               {inbox.from}
-              {inbox.subject}
+              {/* {inbox.subject} */}
             </div>
             {/* <p>{inbox.from}</p> */}
           </ul>
@@ -155,16 +157,20 @@ export function QuillEdit() {
         />
         <ReactQuill
           theme="snow"
+          // className={`ql-toolbar.disabled${!selectedPost ? true : false}`}
           readOnly={selectedPost}
-          value={postForm.from}
+          value={postForm.subject}
+          placeholder="Type Something"
           modules={modules}
+          // toolbar={`${selectedPost ? true : false}`}
           formats={`${!selectedPost ? true : false}`}
+          // modules={modules`${!selectedPost ? true : false}`}
           // formats={formats}
           // readOnly="true"
           // onChange={onChangeEditorHandler}
-          placeholder="Type Something"
         />
-        <Upload />
+        {/* <Upload /> */}
+
         {/* <Viewer /> */}
       </EditorContainer>
     </div>
@@ -180,7 +186,7 @@ const ListEmail = styled.div`
 
   > ul {
     cursor: pointer;
-    padding: 10px;
+    padding: 2px 10px;
     font-size: 12px;
     margin-bottom: 12px;
     // borderline-bottom:
@@ -189,7 +195,7 @@ const ListEmail = styled.div`
       text-transform: uppercase;
       font-weight: bold;
       font-size: 14px;
-      border-bottom: solid 1px #fff;
+      border-bottom: solid 1px #ccc;
     }
   }
 `;
@@ -213,6 +219,9 @@ const EditorContainer = styled.div`
 
   .ql-toolbar {
     // display: none;
+    &:disabled{
+      display: none;
+    }
   }
   .ql-container {
     border: none !important;

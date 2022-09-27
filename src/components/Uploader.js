@@ -2,8 +2,10 @@ import React from "react";
 import styled from "@emotion/styled";
 // import "./App.css";
 // import DocViewer from "react-doc-viewer";
+import { Document, Page } from "react-pdf";
+
 import Uploader from "react-upload-in";
-import GoogleDocsViewer from "react-google-docs-viewer";
+// import GoogleDocsViewer from "react-google-docs-viewer";
 
 class Upload extends React.Component {
   state = {
@@ -11,7 +13,14 @@ class Upload extends React.Component {
       // { id: 1, name: "skd11.jpg", src: "http://localhost/ok/skd11.jpg" },
       // { id: 2, name: "IMG-1294.jpg", src: "http://localhost/ok/IMG-1294.jpg" },
     ],
+    numPages: null,
+    pageNumber: 1,
   };
+
+  onDocumentLoadSuccess({ numPages }) {
+    this.setState({ numPages });
+  }
+
   constructor(props) {
     super(props);
     this.uploader = React.createRef();
@@ -38,6 +47,8 @@ class Upload extends React.Component {
   // ];
   render() {
     const { files } = this.state;
+    const { pageNumber, numPages } = this.state;
+    // const { pageNumber, setPageNumber } = this.state;
 
     return (
       <div className="p-32">
@@ -62,7 +73,13 @@ class Upload extends React.Component {
             onRemoved={this.onRemoved.bind(this)}
             hideOnSuccess={true}
           />
+          <Document file={this.file} onLoadSuccess={this.onDocumentLoadSuccess}>
+            <Page pageNumber={pageNumber} />
+          </Document>
         </UploaderContainer>
+        {/* <p>
+          Page {pageNumber} of {numPages}
+        </p> */}
         {/* <DocViewer documents={docs} />; */}
       </div>
     );
