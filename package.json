@@ -5,11 +5,11 @@
   "proxy": "http://localhost:5000/inbox",
   "dependencies": {
     "@emotion/styled": "^11.10.4",
-    "@mikecousins/react-pdf": "^6.1.1",
     "@react-pdf-viewer/core": "^3.7.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.1.5",
     "@testing-library/user-event": "^13.5.0",
+    "@uiw/react-file-input": "^4.21.18",
     "antd": "^4.22.8",
     "axios": "^0.27.2",
     "pdfjs-dist": "^2.15.349",

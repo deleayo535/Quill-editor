@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
-import PdfView from "./components/PdfViewer";
+import UpdateImageDisplay from "./components/ImgView";
+// import PdfView from "./components/PdfViewer";
 import { QuillEdit } from "./components/Quill";
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
     <>
       <div className="App">
         <QuillEdit />
-        <PdfView />
+        <UpdateImageDisplay />
+        {/* <PdfView /> */}
       </div>
     </>
   );

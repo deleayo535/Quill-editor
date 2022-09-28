@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import Upload from "./Uploader";
+// import Upload from "./Uploader";
+import PdfView from "./PdfViewer";
 
 export function QuillEdit() {
   const [inboxs, setPosts] = useState([]);
@@ -172,6 +173,7 @@ export function QuillEdit() {
         {/* <Upload /> */}
 
         {/* <Viewer /> */}
+        <PdfView />
       </EditorContainer>
     </div>
   );

@@ -33,7 +33,7 @@ class Upload extends React.Component {
       name: response.file,
     });
     this.setState({ files });
-    console.log(files);
+    console.log(this.resultUpload);
   }
   onRemoved(file) {
     let { files } = this.state;

@@ -1,53 +1,42 @@
-import React, { useState, useCallback } from "react";
-import ImageViewer from "react-simple-image-viewer";
+import React, { useState } from "react";
 
-function ImgView() {
-  const [currentImage, setCurrentImage] = useState(0);
-  const [isViewerOpen, setIsViewerOpen] = useState(false);
-  const images = [
-    "http://placeimg.com/1200/800/nature",
-    "http://placeimg.com/800/1200/nature",
-    "http://placeimg.com/1920/1080/nature",
-    "http://placeimg.com/1500/500/nature",
-  ];
+// import ImageGallery from "react-image-gallery";
+import FileInput from "@uiw/react-file-input";
 
-  const openImageViewer = useCallback((index) => {
-    setCurrentImage(index);
-    setIsViewerOpen(true);
-  }, []);
+function UpdateImageDisplay() {
+  // const onChange = (e) => {
+  //   console.log(e);
+  //   // setSelectedFile(e.target.files[0]);
+  // };
 
-  const closeImageViewer = () => {
-    setCurrentImage(0);
-    setIsViewerOpen(false);
-  };
+  const [file, setFile] = React.useState("");
 
+  // Handles file upload event and updates state
+  function handleUpload(event) {
+    setFile(event.target.files[0]);
+  }
+
+  // const docs = [];
   return (
     <div>
-      {images.map((src, index) => (
-        <img
-          src={src}
-          onClick={() => openImageViewer(index)}
-          width="300"
-          key={index}
-          style={{ margin: "2px" }}
-          alt=""
-        />
-      ))}
-
-      {isViewerOpen && (
-        <ImageViewer
-          src={images}
-          currentIndex={currentImage}
-          onClose={closeImageViewer}
-          disableScroll={false}
-          backgroundStyle={{
-            backgroundColor: "rgba(0,0,0,0.9)",
-          }}
-          closeOnClickOutside={true}
+      <input type="file" onChange={handleUpload} />
+      {/* <p>Filename: {file.name}</p>
+      <p>File type: {file.type}</p>
+      <p>File size: {file.size} bytes</p> */}
+      {file && (
+        <FileInput
+          multiple="multiple"
+          style={{ maxWidth: 200 }}
+          size="small"
+          onChange={handleUpload}
+          // onChange={onChange}
+          image={file}
         />
       )}
+      <br />
+      {/* <DocViewer documents={docs} /> */}
+      <br />
     </div>
   );
 }
-
-export default ImgView;
+export default UpdateImageDisplay;
