@@ -21,7 +21,7 @@ const PdfView = ({ files }) => {
         type="file"
         id="file"
         name="file"
-        // accept=".pdf, .docx"
+        accept=".pdf, .docx"
         multiple
         onChange={onChange}
       />
