@@ -24,7 +24,7 @@ export const Modal = ({ setShowModal, images }) => {
       <div className="modal">
         <div className="App">
           {imageURLs.map((imageSrc) => (
-            <img src={imageSrc} />
+            <img src={imageSrc} style={{ width: "80%", height: "80%" }} />
           ))}
         </div>
         <button onClick={() => setShowModal(false)}>X</button>
