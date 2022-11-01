@@ -5,7 +5,11 @@ export const Modal = ({ setShowModal, images }) => {
   const [imageURLs, setImageURLs] = useState([]);
   // const [showModal, setShowModal] = useState(false);
 
+  // const pdfFile = props.pdfFile;
+  // if (pdfFile)
   useEffect(() => {
+    // images = e.target.files;
+    // images.length > 0 && setImageURLs(URL.createObjectURL(images));
     if (images.length < 1) return;
     const newImageUrls = [];
     images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
@@ -22,9 +26,18 @@ export const Modal = ({ setShowModal, images }) => {
   return ReactDom.createPortal(
     <div className="container" ref={modalRef} onClick={closeModal}>
       <div className="modal">
-        <div className="App">
+        <div className="View">
           {imageURLs.map((imageSrc) => (
-            <img src={imageSrc} style={{ width: "80%", height: "80%" }} />
+            <img
+              src={imageSrc}
+              style={{
+                // display: "flex",
+                // flexDirection: "column",
+                paddingBottom: "40px",
+                width: "80%",
+                height: "60%",
+              }}
+            />
           ))}
         </div>
         <button onClick={() => setShowModal(false)}>X</button>
