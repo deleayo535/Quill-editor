@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import ImgViewer from "./components/ImgViewer";
+import PdfView from "./components/PdfViewer";
 // import FilePreviewer from "./components/FileViews";
 // import UpdateImageDisplay from "./components/FilePreview";
 // import Preview from "./components/Preview";
@@ -12,7 +13,8 @@ function App() {
     <>
       <div className="App">
         <QuillEdit />
-        <ImgViewer />
+        {/* <PdfView /> */}
+        {/* <ImgViewer /> */}
         {/* <UpdateImageDisplay /> */}
         {/* <FilePreviewer /> */}
         {/* <Preview /> */}

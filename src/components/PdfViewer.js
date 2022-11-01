@@ -2,7 +2,8 @@
 // import { usePdf } from "@mikecousins/react-pdf";
 import { Worker, Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
+import { Modal } from "./ImgModal";
 import ReactDOM from "react-dom";
 
 // interface PdfViewProps {
@@ -12,10 +13,17 @@ import ReactDOM from "react-dom";
 const PdfView = ({ files }) => {
   const [shown, setShown] = useState(false);
   const [url, setUrl] = React.useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [images, setImages] = useState([]);
 
   const onChange = (e) => {
+    //if pdf or image
+    setImages([...e.target.files]);
     files = e.target.files;
     files.length > 0 && setUrl(URL.createObjectURL(files[0]));
+    // setImages([]);
+
+    console.log(e.target.files);
   };
 
   const modalBody = () => (
@@ -48,7 +56,7 @@ const PdfView = ({ files }) => {
           padding: ".5rem",
         }}
       >
-        <div style={{ marginRight: "auto" }}>sample-file-name.pdf</div>
+        <div style={{ marginRight: "auto" }}></div>
         <button
           style={{
             backgroundColor: "#357edd",
@@ -70,21 +78,30 @@ const PdfView = ({ files }) => {
         }}
       >
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js">
-          <Viewer fileUrl={url} />
+          {shown && <Viewer fileUrl={url} />}
         </Worker>
         {/* <Viewer fileUrl={url} /> */}
       </div>
     </div>
   );
 
+  const openPdf = () => {
+    setShown(true);
+  };
+  const openImages = () => {
+    setShowModal(true);
+  };
+  // const ev = () => {
+  //   onChange();
+  // };
   return (
-    <>
+    <div style={{ display: "flex" }}>
       <div>
         <input
           type="file"
           id="file"
           name="file"
-          accept=".pdf, .docx"
+          accept="image/*,.pdf"
           multiple
           onChange={onChange}
         />
@@ -97,15 +114,43 @@ const PdfView = ({ files }) => {
           // borderRadius: ".10rem",
           color: "#fff",
           cursor: "pointer",
-          padding: "8px 11px",
+          padding: "4px 4px",
           // padding: ".5rem",
         }}
-        onClick={() => setShown(true)}
+        onClick={() => {
+          switch (url && images) {
+            case !url:
+              openImages();
+              break;
+            case !images:
+              openPdf();
+              break;
+            default:
+              openImages(false);
+              openPdf(false);
+          }
+          // if (setShown) {
+          //   openPdf();
+          //   openImages(false);
+          // } else if (setImages) {
+          //   openImages();
+          //   openPdf(false);
+          // } else {
+          // }
+        }}
       >
         view
       </button>
-      {shown && ReactDOM.createPortal(modalBody(), document.body)}
-    </>
+      {shown ? (
+        ReactDOM.createPortal(modalBody(), document.body)
+      ) : showModal ? (
+        <Modal images={images} setShowModal={setShowModal} />
+      ) : null}
+      {/* {(showModal && <Modal images={images} setShowModal={setShowModal} />) ||
+        (shown && ReactDOM.createPortal(modalBody(), document.body))} */}
+
+      {/* {shown && ReactDOM.createPortal(modalBody(), document.body)} */}
+    </div>
   );
 };
 

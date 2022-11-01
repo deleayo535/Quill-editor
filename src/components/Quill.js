@@ -7,6 +7,7 @@ import "react-quill/dist/quill.snow.css";
 import PdfView from "./PdfViewer";
 // import { Modal } from "./ImgModal";
 import "./Img.css";
+import ImgViewer from "./ImgViewer";
 
 export function QuillEdit() {
   const [inboxs, setPosts] = useState([]);
@@ -176,6 +177,7 @@ export function QuillEdit() {
         {/* <Upload /> */}
 
         {/* <Viewer /> */}
+        {/* <ImgViewer /> */}
         <PdfView />
       </EditorContainer>
     </div>
@@ -198,7 +200,6 @@ export function QuillEdit() {
 //     answer = "Ate Nine";
 //   }
 
-//   // Only change code above this line
 //   return answer;
 // }
 
