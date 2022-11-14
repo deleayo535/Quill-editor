@@ -8,6 +8,8 @@ import PdfView from "./PdfViewer";
 // import { Modal } from "./ImgModal";
 import "./Img.css";
 import ImgViewer from "./ImgViewer";
+import { Button } from "./Atom/Button";
+import { Image } from "./Atom/Image";
 
 export function QuillEdit() {
   const [inboxs, setPosts] = useState([]);
@@ -30,42 +32,6 @@ export function QuillEdit() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  // const newInboxs = inboxs.map(
-  //   (inbox) =>
-  //     inbox
-  //       .trim("")
-  //       // .slice(1, -1)
-  //       .replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "")
-  //       .replace(/\[|\]/gi, "")
-  //       .replace(/(\r\n|\n|\r)/gm, "")
-  //       .replace(/'/g, '"')
-  //       // .replace(/\'/g, "")
-  //       .replace(/[']/g, '"')
-  //       .replace(/\]$/, "")
-  //       .replace(/^\[/, "")
-  //       .replace(/^\s+|\s+$/g, "")
-  //       // .replace(/\\"/g, '\\"')
-  //       // .replace(/\\&/g, "\\&")
-  //       // .replace(/\\r/g, "\\r")
-  //       // .replace(/\\t/g, "\\t")
-  //       // .replace(/\\b/g, "\\b")
-  //       // .replace(/\\f/g, "\\f")
-  //       // .replace(/[\u0000-\u0019]+/g, "")
-  //       // .replace(/\s/g, "")
-  //       .replace(/&quot;/gi, '"')
-  //       .replace(/([{,])(\s*)([A-Za-z0-9_\-]+?)\s*:/g, '$1"$3":')
-  //   // .replace(/['{ }']/g, "")
-
-  //   // .split(";;;")
-  // );
-  // v = inbox.index[0];
-  // var emails = Array.of(newInboxs);
-  // console.log(emails);
-
-  // console.log(newInboxs[0]);
-  // console.log(JSON.parse(newInboxs[0]));
-  // console.log(JSON.parse(newInboxs));
 
   const [postForm, setPostForm] = useState({
     subject: "",
@@ -134,10 +100,19 @@ export function QuillEdit() {
     "image",
   ];
   // const [] = useState();
+  // const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseEnter = () => {
+    // setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    // setIsHovering(false);
+  };
 
   return (
-    <div style={{ display: "flex", margin: "30px" }}>
-      <ListEmail>
+    <MailContainer>
+      {/* <ListEmail>
         {inboxs.map((inbox) => (
           <ul
             // key={inbox.seq}
@@ -145,14 +120,48 @@ export function QuillEdit() {
             // className={`inbox${selectedPost?.id === inbox.id ? "active" : ""}`}
             onClick={onSelectPost(inbox)}
           >
-            <div>
-              {inbox.from}
-              {/* {inbox.subject} */}
-            </div>
-            {/* <p>{inbox.from}</p> */}
+            <div>{inbox.from}</div>
           </ul>
         ))}
-      </ListEmail>
+      </ListEmail> */}
+      <SideBar>
+        {/* <Button
+          text="Compose"
+          icon={"/shopping-bag.svg"}
+          onclick={() => console.log("clicked")}
+        /> */}
+        <div>
+          <div
+            style={{
+              // cursor: "pointer",
+              // backgroundColor: "rebeccapurple",
+              // backgroundColor: isHovering ? "salmon" : "",
+              // color: isHovering ? "white" : "",
+              // backgroundColor: "#DAF0FD",
+              width: "18rem",
+              borderRadius: "10px",
+              lineHeight: "26px",
+            }}
+            // onMouseEnter={handleMouseEnter}
+            // onMouseLeave={handleMouseLeave}
+          >
+            <Image
+              src={"/shopping-bag.svg"}
+              alt={""}
+              style={{
+                paddingRight: "8px",
+                paddingLeft: "8px",
+                paddingTop: "8px",
+                height: "1rem",
+              }}
+            />
+            Inbox
+          </div>
+        </div>
+        <div>Sent</div>
+        <div>Drafts</div>
+        <div>Trash</div>
+      </SideBar>
       <EditorContainer>
         <input
           value={postForm.subject}
@@ -180,56 +189,84 @@ export function QuillEdit() {
         {/* <ImgViewer /> */}
         <PdfView />
       </EditorContainer>
-    </div>
+    </MailContainer>
   );
 }
+const MailContainer = styled.div`
+  display: flex;
+  margin: 20px;
+`;
 
-// function chainToSwitch(val) {
-//   let answer = "";
-//   // Only change code below this line
-
-//   if (val === "bob") {
-//     answer = "Marley";
-//   } else if (val === 42) {
-//     answer = "The Answer";
-//   } else if (val === 1) {
-//     answer = "There is no #1";
-//   } else if (val === 99) {
-//     answer = "Missed me by this much!";
-//   } else if (val === 7) {
-//     answer = "Ate Nine";
-//   }
-
-//   return answer;
-// }
-
-// chainToSwitch(7);
-
-const ListEmail = styled.div`
+const SideBar = styled.div`
   width: 30%;
   padding-top: 10px;
   margin-left: 10px;
   text-align: left;
   background-color: #eee;
 
-  > ul {
+  > Button {
+    justify-content: center;
     cursor: pointer;
-    padding: 2px 10px;
-    font-size: 12px;
-    margin-bottom: 12px;
-    // borderline-bottom:
+    border-radius: 20px;
+    height: 3rem;
+    width: 10rem;
+    background-color: blue;
+    margin-bottom: 10px;
+    :hover {
+      background-color: yellow;
+    }
+  }
+
+  > div {
+    padding-left: 5px;
+    // cursor: pointer;
+    // text-transform: uppercase;
+    // font-weight: bold;
+    font-size: 16px;
+    line-height: 26px;
+    border-bottom: solid 1px #ccc;
+    padding-bottom: 8px;
 
     > div {
-      text-transform: uppercase;
-      font-weight: bold;
-      font-size: 14px;
-      border-bottom: solid 1px #ccc;
+      cursor: "pointer";
+      background-color: "rebeccapurple";
+      // backgroundColor: "#DAF0FD";
+      width: "18rem";
+      border-radius: "10px";
+      line-height: "26px";
+      :hover {
+        cursor: "pointer";
+        background-color: yellow;
+      }
     }
   }
 `;
 
+// const ListEmail = styled.div`
+//   width: 30%;
+//   padding-top: 10px;
+//   margin-left: 10px;
+//   text-align: left;
+//   background-color: #eee;
+
+//   > ul {
+//     cursor: pointer;
+//     padding: 2px 10px;
+//     font-size: 12px;
+//     margin-bottom: 12px;
+//     // borderline-bottom:
+
+//     > div {
+//       text-transform: uppercase;
+//       font-weight: bold;
+//       font-size: 14px;
+//       border-bottom: solid 1px #ccc;
+//     }
+//   }
+// `;
+
 const EditorContainer = styled.div`
-  width: 70%;
+  width: 40%;
   // padding-left: 20%;
    
   > input {
@@ -237,7 +274,6 @@ const EditorContainer = styled.div`
     outline: none;
     padding: 18px;
     font-size: 2em;
-    width: 100%;
 
     &:disabled{
       background: transparent;
