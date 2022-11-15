@@ -124,44 +124,6 @@ export function QuillEdit() {
           </ul>
         ))}
       </ListEmail> */}
-      <SideBar>
-        {/* <Button
-          text="Compose"
-          icon={"/shopping-bag.svg"}
-          onclick={() => console.log("clicked")}
-        /> */}
-        <div>
-          <div
-            style={{
-              // cursor: "pointer",
-              // backgroundColor: "rebeccapurple",
-              // backgroundColor: isHovering ? "salmon" : "",
-              // color: isHovering ? "white" : "",
-              // backgroundColor: "#DAF0FD",
-              width: "18rem",
-              borderRadius: "10px",
-              lineHeight: "26px",
-            }}
-            // onMouseEnter={handleMouseEnter}
-            // onMouseLeave={handleMouseLeave}
-          >
-            <Image
-              src={"/shopping-bag.svg"}
-              alt={""}
-              style={{
-                paddingRight: "8px",
-                paddingLeft: "8px",
-                paddingTop: "8px",
-                height: "1rem",
-              }}
-            />
-            Inbox
-          </div>
-        </div>
-        <div>Sent</div>
-        <div>Drafts</div>
-        <div>Trash</div>
-      </SideBar>
       <EditorContainer>
         <input
           value={postForm.subject}
@@ -183,10 +145,6 @@ export function QuillEdit() {
           // readOnly="true"
           // onChange={onChangeEditorHandler}
         />
-        {/* <Upload /> */}
-
-        {/* <Viewer /> */}
-        {/* <ImgViewer /> */}
         <PdfView />
       </EditorContainer>
     </MailContainer>
@@ -197,76 +155,8 @@ const MailContainer = styled.div`
   margin: 20px;
 `;
 
-const SideBar = styled.div`
-  width: 30%;
-  padding-top: 10px;
-  margin-left: 10px;
-  text-align: left;
-  background-color: #eee;
-
-  > Button {
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 20px;
-    height: 3rem;
-    width: 10rem;
-    background-color: blue;
-    margin-bottom: 10px;
-    :hover {
-      background-color: yellow;
-    }
-  }
-
-  > div {
-    padding-left: 5px;
-    // cursor: pointer;
-    // text-transform: uppercase;
-    // font-weight: bold;
-    font-size: 16px;
-    line-height: 26px;
-    border-bottom: solid 1px #ccc;
-    padding-bottom: 8px;
-
-    > div {
-      cursor: "pointer";
-      background-color: "rebeccapurple";
-      // backgroundColor: "#DAF0FD";
-      width: "18rem";
-      border-radius: "10px";
-      line-height: "26px";
-      :hover {
-        cursor: "pointer";
-        background-color: yellow;
-      }
-    }
-  }
-`;
-
-// const ListEmail = styled.div`
-//   width: 30%;
-//   padding-top: 10px;
-//   margin-left: 10px;
-//   text-align: left;
-//   background-color: #eee;
-
-//   > ul {
-//     cursor: pointer;
-//     padding: 2px 10px;
-//     font-size: 12px;
-//     margin-bottom: 12px;
-//     // borderline-bottom:
-
-//     > div {
-//       text-transform: uppercase;
-//       font-weight: bold;
-//       font-size: 14px;
-//       border-bottom: solid 1px #ccc;
-//     }
-//   }
-// `;
-
 const EditorContainer = styled.div`
-  width: 40%;
+  width: 100%;
   // padding-left: 20%;
    
   > input {

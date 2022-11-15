@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:5000/inbox",
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@cyntler/react-doc-viewer": "^1.6.2",
     "@emotion/styled": "^11.10.4",
     "@react-pdf-viewer/core": "^3.7.0",
@@ -24,6 +25,7 @@
     "react-scripts": "5.0.1",
     "react-simple-image-viewer": "^1.2.2",
     "react-upload-in": "^0.1.0",
+    "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
