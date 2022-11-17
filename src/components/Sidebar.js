@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "./Atom/Button";
 import { SidebarButtonsItems } from "./data/SidebarButtonItems";
 
-const SideBar = () => {
+const SideBar = ({ onToggle }) => {
+  const [toggle, setToggle] = useState(false);
+
   return (
-    <Wrapper>
+    <SideWrapper>
       <ComposeWrapper>
-        <Button />
+        <Button
+          onClick={() => {
+            setToggle(toggle);
+          }}
+        />
       </ComposeWrapper>
 
       <SideButtonsWrapper>
@@ -18,13 +24,13 @@ const SideBar = () => {
         ))}
       </SideButtonsWrapper>
       <MeetWrapper></MeetWrapper>
-    </Wrapper>
+    </SideWrapper>
   );
 };
 
 export default SideBar;
 
-const Wrapper = styled.div`
+const SideWrapper = styled.div`
   border-right: 1px solid lightgray;
   height: 100vh;
 `;
