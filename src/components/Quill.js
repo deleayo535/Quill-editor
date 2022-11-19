@@ -125,12 +125,12 @@ export function QuillEdit() {
         ))}
       </ListEmail> */}
       <EditorContainer>
-        <input
+        {/* <input
           value={postForm.subject}
           disabled={selectedPost}
           placeholder="Title"
           onChange={onChangeTitleHandler}
-        />
+        /> */}
         <ReactQuill
           theme="snow"
           // className={`ql-toolbar.disabled${!selectedPost ? true : false}`}
@@ -153,10 +153,14 @@ export function QuillEdit() {
 const MailContainer = styled.div`
   display: flex;
   margin: 20px;
+  height: 400px;
 `;
 
 const EditorContainer = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   // padding-left: 20%;
    
   > input {

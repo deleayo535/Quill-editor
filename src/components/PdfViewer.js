@@ -5,6 +5,11 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import React, { useState } from "react";
 import { Modal } from "./ImgModal";
 import ReactDOM from "react-dom";
+import styled from "styled-components";
+import { PaperClipOutlined } from "@ant-design/icons";
+import LoadingSpinner from "./Atom/LoadingSpinner";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 // interface PdfViewProps {
 //   fileUrl: string;
@@ -12,12 +17,14 @@ import ReactDOM from "react-dom";
 
 const PdfView = ({ files }) => {
   const [shown, setShown] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [url, setUrl] = React.useState("");
   const [showModal, setShowModal] = useState(false);
   const [images, setImages] = useState([]);
 
   const onChange = (e) => {
     //if pdf or image
+    // setIsLoading(true);
     setImages([...e.target.files]);
     files = e.target.files;
     files.length > 0 && setUrl(URL.createObjectURL(files[0]));
@@ -91,12 +98,21 @@ const PdfView = ({ files }) => {
   const openImages = () => {
     setShowModal(true);
   };
-  // const ev = () => {
-  //   onChange();
-  // };
+
+  const hiddenFileInput = React.useRef(null);
+
+  const handleClick = (event) => {
+    hiddenFileInput.current.click();
+  };
+
+  const percentage = 4;
+
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", alignItems: "center" }}>
       <div>
+        <Attachment>
+          <PaperClipOutlined onClick={handleClick} style={{ width: "100%" }} />
+        </Attachment>
         <input
           type="file"
           id="file"
@@ -104,30 +120,35 @@ const PdfView = ({ files }) => {
           accept="image/*,.pdf"
           multiple
           onChange={onChange}
+          ref={hiddenFileInput}
+          style={{ display: "none" }}
         />
       </div>
       <button
         style={{
-          backgroundColor: "#00449e",
-          // border: "none",
-          borderRadius: "2px",
+          backgroundColor: "#f1f3f4",
+          border: "1px solid",
+          borderRadius: "20px",
           // borderRadius: ".10rem",
-          color: "#fff",
+          color: "black",
           cursor: "pointer",
-          padding: "4px 4px",
+          padding: "3px 4px",
           // padding: ".5rem",
         }}
+        // disabled={isLoading}
         onClick={() => {
-          switch (url && images) {
-            case !url:
-              openImages();
-              break;
-            case !images:
-              openPdf();
-              break;
-            default:
+          switch (url || images) {
+            case url:
               openImages(false);
+              openPdf(true);
+              break;
+            case images:
+              openImages(true);
               openPdf(false);
+              break;
+            // default:
+            //   openImages(false);
+            //   openPdf(false);
           }
           // if (setShown) {
           //   openPdf();
@@ -139,20 +160,24 @@ const PdfView = ({ files }) => {
           // }
         }}
       >
-        view
+        Preview
       </button>
-      {shown ? (
+      {/* {shown ? (
         ReactDOM.createPortal(modalBody(), document.body)
-      ) : showModal ? (
-        <Modal images={images} setShowModal={setShowModal} />
-      ) : null}
-      {/* {(showModal && <Modal images={images} setShowModal={setShowModal} />) ||
-        (shown && ReactDOM.createPortal(modalBody(), document.body))} */}
-
-      {/* {shown && ReactDOM.createPortal(modalBody(), document.body)} */}
+        ) : showModal ? (
+          <Modal images={images} setShowModal={setShowModal} />
+        ) : null} */}
+      {/* {isLoading ? <CircularProgressbar value={percentage} text={`${percentage}%`} /> :( */}
+      {showModal && <Modal images={images} setShowModal={setShowModal} />})
+      {shown && ReactDOM.createPortal(modalBody(), document.body)}
     </div>
   );
 };
+
+const Attachment = styled.div`
+  width: 40px;
+  // height: 60px;
+`;
 
 // const PdfView = ({ files }) => {
 //   const [url, setUrl] = React.useState("");
