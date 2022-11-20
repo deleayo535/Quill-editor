@@ -4,6 +4,7 @@ import { BorderOutlined, StarOutlined, StarFilled } from "@ant-design/icons";
 
 const EmailItem = ({ starred, from, subject, message, received, read }) => {
   const [star, setStar] = useState(starred);
+  // const [click, setClick] = useState(true);
 
   return (
     <Wrapper>

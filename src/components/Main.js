@@ -23,6 +23,7 @@ import { INBOX, DRAFT, COMPOSE, SENT, TRASH } from "./List";
 import Draft from "./MailContainer/Draft";
 import Sent from "./MailContainer/Sent";
 import Trash from "./MailContainer/Trash";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function Main(index) {
   // const [toggle, setToggle] = useState(true);
@@ -55,6 +56,7 @@ export default function Main(index) {
   };
 
   return (
+    // <BrowserRouter>
     <MainWrapper>
       <SideWrapper>
         <ComposeWrapper>
@@ -72,7 +74,10 @@ export default function Main(index) {
           ))}
         </SideButtonsWrapper>
       </SideWrapper>
-
+      {/* <Routes> */}
+      {/* <Route
+            path="/"
+            element={ */}
       <EmailWrapper>
         {/* {toggle ? <EmailsView /> : <QuillEdit />} */}
         {view === INBOX && <EmailsView />}
@@ -81,9 +86,14 @@ export default function Main(index) {
         {view === DRAFT && <Draft />}
         {view === TRASH && <Trash />}
       </EmailWrapper>
+      {/* }
+          /> 
+          <Route path="/mail" element={<EmailsView />} />
+          </Routes>*/}
 
       <SideIcons />
     </MainWrapper>
+    /* </BrowserRouter> */
   );
 }
 

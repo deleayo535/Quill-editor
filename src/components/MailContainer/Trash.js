@@ -1,68 +1,38 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-// import { QuillEdit } from "./Quill";
+import React, { useEffect, useState } from "react";
+import "./Mail.css";
+// import Section from "../Section/Section";
+import EmailRow from "../EmailRow/EmailRow";
 import { trashData } from "../temp/TrashData";
 
-import {
-  BorderOutlined,
-  ReloadOutlined,
-  MoreOutlined,
-} from "@ant-design/icons";
-import EmailItem from "../emailItem/EmailItem";
-
-// const INBOX = "INBOX";
-// const COMPOSE = "COMPOSE";
-
-const Trash = () => {
-  const [toggle, setToggle] = useState("Inbox");
-
-  const handleClick = (toggle) => {
-    switch (toggle) {
-      case "mail 1":
-        setToggle("mail 1");
-        break;
-      case "mail 2":
-        setToggle("mail 2");
-        break;
-    }
-    console.log("mail clicked");
-  };
+function Trash() {
   return (
-    <EmailWrapper>
-      <TopWrapper>
-        <BorderOutlined />
-        <ReloadOutlined />
-        <MoreOutlined />
-      </TopWrapper>
-      <EmailsContainer>
-        {trashData.map(
-          ({ starred, to, subject, message, sent, read, index }) => (
-            <EmailItem
-              starred={starred}
-              to={to}
-              subject={subject}
-              message={message}
-              sent={sent}
-              read={read}
-              onClick={handleClick}
-            ></EmailItem>
-          )
-        )}
-      </EmailsContainer>
-    </EmailWrapper>
+    <div className="emailList">
+      <div className="emailList-settings">
+        <div className="emailList-settingsLeft"></div>
+        <div className="emailList-settingsRight"></div>
+      </div>
+      <div className="emailList-sections"></div>
+
+      <div className="emailList-list">
+        {trashData.map(({ from, subject, message, received }) => (
+          <EmailRow
+            // id={id}
+            // key={id}/
+            title={from}
+            subject={subject}
+            description={message}
+            time={received}
+          />
+        ))}
+        <EmailRow
+          title="Twitch"
+          subject="Hey fellows!!"
+          description="This is a DOPE"
+          time=""
+        />
+      </div>
+    </div>
   );
-};
+}
 
 export default Trash;
-
-const EmailWrapper = styled.div``;
-
-const TopWrapper = styled.div`
-  // display: grid;
-  // grid-template-columns: ;
-
-  padding-left: 20px;
-  height: 48px;
-`;
-
-const EmailsContainer = styled.div``;

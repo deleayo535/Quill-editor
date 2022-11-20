@@ -7,61 +7,62 @@ import "react-quill/dist/quill.snow.css";
 import PdfView from "./PdfViewer";
 // import { Modal } from "./ImgModal";
 import "./Img.css";
-import ImgViewer from "./ImgViewer";
-import { Button } from "./Atom/Button";
-import { Image } from "./Atom/Image";
+// import ImgViewer from "./ImgViewer";
+// import { Button } from "./Atom/Button";
+// import { Image } from "./Atom/Image";
 
 export function QuillEdit() {
   const [inboxs, setPosts] = useState([]);
   // const [shown, setShown] = useState(false);
 
-  const fetchData = async () => {
-    const { data } = await axios.get(
-      // "https:jsonplaceholder.typicode.com/posts"
-      "http://localhost:5000/inbox"
-    );
-    // .then(function (res) {
-    //   // data = JSON.parse(data);
-    // console.log(res.config);
-    console.log(data);
-    // });
+  // const fetchData = async () => {
+  //   const { data } = await axios
+  //     .get
+  //     // "https:jsonplaceholder.typicode.com/posts"
+  //     // "http://localhost:5000/inbox"
+  //     ();
+  //   // .then(function (res) {
+  //   //   // data = JSON.parse(data);
+  //   // console.log(res.config);
+  //   console.log(data);
+  //   // });
 
-    setPosts(data);
-  };
+  //   setPosts(data);
+  // };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
-  const [postForm, setPostForm] = useState({
-    subject: "",
-    from: "",
-  });
-  const [selectedPost, setSelectedPost] = useState(null);
+  // const [postForm, setPostForm] = useState({
+  //   subject: "",
+  //   from: "",
+  // });
+  // const [selectedPost, setSelectedPost] = useState(null);
 
-  const onChangeTitleHandler = (event) =>
-    setPostForm({ ...postForm, subject: event.target.value });
+  // const onChangeTitleHandler = (event) =>
+  //   setPostForm({ ...postForm, subject: event.target.value });
 
-  // const onChangeEditorHandler = (value) =>
-  //   setPostForm({ ...postForm, subject: value });
+  // // const onChangeEditorHandler = (value) =>
+  // //   setPostForm({ ...postForm, subject: value });
 
-  useEffect(() => {
-    // setPostForm();
-    // console.log(postForm);
-  }, [postForm]);
+  // useEffect(() => {
+  //   // setPostForm();
+  //   // console.log(postForm);
+  // }, [postForm]);
 
-  const onSelectPost = (inbox) => () => {
-    setSelectedPost(inbox);
-    // ReactQuill.editor.disable();
-    // modules.toolbar(false);
-    setPostForm({
-      subject: inbox.subject,
-      from: inbox.from,
-    });
+  // const onSelectPost = (inbox) => () => {
+  //   setSelectedPost(inbox);
+  //   // ReactQuill.editor.disable();
+  //   // modules.toolbar(false);
+  //   setPostForm({
+  //     subject: inbox.subject,
+  //     from: inbox.from,
+  //   });
 
-    // console.log(inbox.subject, inbox.from);
-    // setSelectedPost(inbox);
-  };
+  //   // console.log(inbox.subject, inbox.from);
+  //   // setSelectedPost(inbox);
+  // };
 
   const modules = {
     // toolbar: false,
@@ -102,28 +103,8 @@ export function QuillEdit() {
   // const [] = useState();
   // const [isHovering, setIsHovering] = useState(false);
 
-  const handleMouseEnter = () => {
-    // setIsHovering(true);
-  };
-
-  const handleMouseLeave = () => {
-    // setIsHovering(false);
-  };
-
   return (
     <MailContainer>
-      {/* <ListEmail>
-        {inboxs.map((inbox) => (
-          <ul
-            // key={inbox.seq}
-            key={inbox.keys}
-            // className={`inbox${selectedPost?.id === inbox.id ? "active" : ""}`}
-            onClick={onSelectPost(inbox)}
-          >
-            <div>{inbox.from}</div>
-          </ul>
-        ))}
-      </ListEmail> */}
       <EditorContainer>
         {/* <input
           value={postForm.subject}
@@ -134,14 +115,14 @@ export function QuillEdit() {
         <ReactQuill
           theme="snow"
           // className={`ql-toolbar.disabled${!selectedPost ? true : false}`}
-          readOnly={selectedPost}
-          value={postForm.subject}
+          // readOnly={selectedPost}
+          // value={postForm.subject}
           placeholder="Type Something"
           modules={modules}
           // toolbar={`${selectedPost ? true : false}`}
-          formats={`${!selectedPost ? true : false}`}
+          // formats={`${!selectedPost ? true : false}`}
           // modules={modules`${!selectedPost ? true : false}`}
-          // formats={formats}
+          formats={formats}
           // readOnly="true"
           // onChange={onChangeEditorHandler}
         />
@@ -152,24 +133,24 @@ export function QuillEdit() {
 }
 const MailContainer = styled.div`
   display: flex;
-  margin: 20px;
+  // margin: 20px;
   height: 400px;
 `;
 
 const EditorContainer = styled.div`
-  width: 100%;
+  // width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  // padding-left: 20%;
-   
+  padding-top: 16px;
+
   > input {
     border: none;
     outline: none;
     padding: 18px;
     font-size: 2em;
 
-    &:disabled{
+    &:disabled {
       background: transparent;
       cursor: pointer;
     }
@@ -177,21 +158,22 @@ const EditorContainer = styled.div`
 
   .ql-toolbar {
     // display: none;
-    &:disabled{
+    &:disabled {
       display: none;
     }
   }
   .ql-container {
-    border: none !important;
+    // border: 0.5px solid;
   }
 
-  .quill, .ql-container {
+  .quill,
+  .ql-container {
     font-size: 1em;
-    height: 100%
-    cursor: pointer;
+    height: 300px;
+    // cursor: pointer;
 
     .ql-editor {
-      cursor: pointer
+      cursor: pointer;
     }
   }
 `;

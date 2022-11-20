@@ -168,7 +168,7 @@ const PdfView = ({ files }) => {
           <Modal images={images} setShowModal={setShowModal} />
         ) : null} */}
       {/* {isLoading ? <CircularProgressbar value={percentage} text={`${percentage}%`} /> :( */}
-      {showModal && <Modal images={images} setShowModal={setShowModal} />})
+      {showModal && <Modal images={images} setShowModal={setShowModal} />}
       {shown && ReactDOM.createPortal(modalBody(), document.body)}
     </div>
   );

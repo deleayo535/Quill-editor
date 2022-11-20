@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { QuillEdit } from "./Quill";
 import { emailData } from "./temp/EmailData";
+import { useNavigate } from "react-router-dom";
+import { selectMail } from "../features/mailSlice";
+import { useDispatch } from "react-redux";
 
 import {
   BorderOutlined,
@@ -9,8 +12,28 @@ import {
   MoreOutlined,
 } from "@ant-design/icons";
 import EmailItem from "./emailItem/EmailItem";
+import { useState } from "react";
 
 const EmailsView = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // const openMail = () => {
+  //   dispatch(
+  //     selectMail({
+  //       id,
+  //       title,
+  //       subject,
+  //       description,
+  //       time,
+  //     })
+  //   );
+  //   navigate("/mail");
+  // };
+
+  const handleView = () => {
+    console.log("clicked");
+  };
   return (
     <EmailWrapper>
       <TopWrapper>
@@ -18,7 +41,10 @@ const EmailsView = () => {
         <ReloadOutlined />
         <MoreOutlined />
       </TopWrapper>
-      <EmailsContainer>
+
+      <EmailsContainer
+      // onClick={openMail}
+      >
         {emailData.map(
           ({ starred, from, subject, message, received, read }) => (
             <EmailItem
@@ -49,3 +75,19 @@ const TopWrapper = styled.div`
 `;
 
 const EmailsContainer = styled.div``;
+
+const SidebarButtonItem = styled.div`
+  display: grid;
+  grid-template-columns: 14% auto;
+  color: gray;
+  padding: 10px 25px;
+  border-radius: 0 100px 100px 0;
+  cursor: pointer;
+  margin-right: 8px;
+  text-align: start;
+  align-items: center;
+
+  :hover {
+    background-color: #f5f7f7;
+  }
+`;

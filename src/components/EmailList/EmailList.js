@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./Mail.css";
+import "./EmailList.css";
 // import Section from "../Section/Section";
 import EmailRow from "../EmailRow/EmailRow";
-import { draftData } from "../temp/DraftData";
+import { emailData } from "../temp/EmailData";
 
-function Draft() {
+function EmailList() {
   return (
     <div className="emailList">
       <div className="emailList-settings">
@@ -14,7 +14,7 @@ function Draft() {
       <div className="emailList-sections"></div>
 
       <div className="emailList-list">
-        {draftData.map(({ from, subject, message, received }) => (
+        {emailData.map(({ from, subject, message, received }) => (
           <EmailRow
             // id={id}
             // key={id}/
@@ -35,4 +35,4 @@ function Draft() {
   );
 }
 
-export default Draft;
+export default EmailList;
