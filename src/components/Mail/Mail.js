@@ -1,15 +1,14 @@
 import React from "react";
 import "./Mail.css";
-// import { IconButton } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import { selectOpenMail } from "../../features/mailSlice";
 import { useSelector } from "react-redux";
 import { InboxOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 
-function Mail() {
+function Mail({ id, title, subject, description, time }) {
   const navigate = useNavigate();
 
-  const selectedMail = useSelector(selectOpenMail);
+  // const selectedMail = useSelector(selectOpenMail);
 
   return (
     <div className="mail">
@@ -23,15 +22,14 @@ function Mail() {
       <div className="mail-body">
         <div className="mail-bodyHeader">
           <div className="mail-subject">
-            <h2>{selectedMail?.subject}</h2>
-            {/* <LabelImportantIcon className="mail-important" /> */}
+            <h2>{subject}</h2>
           </div>
-          <p>{selectedMail?.title}</p>
-          <p className="mail-time">{selectedMail?.time}</p>
+          <p>{title}</p>
+          <p className="mail-time">{time}</p>
         </div>
 
         <div className="mail-message">
-          <p>{selectedMail?.description}</p>
+          <p>{description}</p>
         </div>
       </div>
     </div>

@@ -5,12 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { selectMail } from "../../features/mailSlice";
 import { useDispatch } from "react-redux";
 
-function EmailRow({ title, subject, description, time }) {
+function EmailRow({ id, title, subject, description, time }) {
   const navigate = useNavigate();
   // const dispatch = useDispatch();
 
   const openMail = () => {
-    // dispatch(
     selectMail({
       // id,
       title,
@@ -18,7 +17,6 @@ function EmailRow({ title, subject, description, time }) {
       description,
       time,
     });
-    // );
     navigate("/mail");
   };
 
@@ -29,6 +27,7 @@ function EmailRow({ title, subject, description, time }) {
       <div className="emailRow-message">
         <h4>
           {subject}
+          {""}
           <span className="emailRow-description"> - {description}</span>
         </h4>
       </div>
