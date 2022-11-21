@@ -20,14 +20,12 @@ import {
 } from "@ant-design/icons";
 import EmailsView from "./EmailsView";
 import { INBOX, DRAFT, COMPOSE, SENT, TRASH } from "./List";
+import Draft from "./MailContainer/Draft";
+import Sent from "./MailContainer/Sent";
+import Trash from "./MailContainer/Trash";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// const INBOX = "INBOX";
-// const COMPOSE = "COMPOSE";
-// const SENT = "SENT";
-// const DRAFT = "DRAFT";
-// const TRASH = "TRASH";
-
-export default function Main() {
+export default function Main(index) {
   // const [toggle, setToggle] = useState(true);
   const [view, setView] = useState(INBOX);
 
@@ -35,31 +33,10 @@ export default function Main() {
     console.log(view);
   });
 
-  // const ActiveItemView = ComponentMap[view];
-  // const [appState, changeState] = useState({
-  //   activeObject: null,
-  //   SidebarButtonsItems: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
-  // });
-
-  // function toggleActive(index) {
-  //   changeState({
-  //     ...appState,
-  //     activeObject: appState.SidebarButtonsItems[index],
-  //   });
-  // }
-
-  // function toggleActiveStyles(index) {
-  //   if (appState.SidebarButtonsItems[index] === appState.activeObject) {
-  //     return <EmailWrapper />;
-  //   } else {
-  //     return <EmailWrapper />;
-  //   }
-  // }
-
-  const handleClick = (view) => {
+  const handleClick = (views) => {
     // setToggle(!toggle);
     // setView((prev) => !prev);
-    switch (view) {
+    switch (views) {
       case COMPOSE:
         setView(COMPOSE);
         break;
@@ -79,6 +56,7 @@ export default function Main() {
   };
 
   return (
+    // <BrowserRouter>
     <MainWrapper>
       <SideWrapper>
         <ComposeWrapper>
@@ -96,18 +74,26 @@ export default function Main() {
           ))}
         </SideButtonsWrapper>
       </SideWrapper>
-
+      {/* <Routes> */}
+      {/* <Route
+            path="/"
+            element={ */}
       <EmailWrapper>
         {/* {toggle ? <EmailsView /> : <QuillEdit />} */}
         {view === INBOX && <EmailsView />}
         {view === COMPOSE && <QuillEdit />}
-        {view === SENT && <>SENT</>}
-        {view === DRAFT && <>Draft</>}
-        {view === TRASH && <>TRASH</>}
+        {view === SENT && <Sent />}
+        {view === DRAFT && <Draft />}
+        {view === TRASH && <Trash />}
       </EmailWrapper>
+      {/* }
+          /> 
+          <Route path="/mail" element={<EmailsView />} />
+          </Routes>*/}
 
       <SideIcons />
     </MainWrapper>
+    /* </BrowserRouter> */
   );
 }
 
