@@ -1,8 +1,12 @@
 .sidebar {
+  /* background-color: #060b26; */
+
   flex: 0.5;
   min-width: 230px;
   max-width: 230px;
   padding-right: 20px;
+  position: relative;
+  bottom: 70px;
 }
 
 .sidebar-compose {
@@ -23,6 +27,22 @@
 
 .sidebar-link {
   text-decoration: none;
+}
+
+.nav-menu {
+  min-width: 230px;
+  max-width: 230px;
+  height: 100vh;
+  justify-content: center;
+  position: fixed;
+  top: 50;
+  left: -50%;
+  transition: 850ms;
+}
+
+.nav-menu.active {
+  left: 0;
+  transition: 350ms;
 }
 
 /* @media only screen and (max-width: 500px) {
