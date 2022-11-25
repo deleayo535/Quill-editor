@@ -1,45 +1,52 @@
 // import { Button, IconButton } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import "./SIdebar.css";
 import styled from "styled-components";
 import SidebarOption from "./SidebarOption";
 import { Link, useNavigate } from "react-router-dom";
 import {
   InboxOutlined,
-  BorderOutlined,
+  MenuOutlined,
   FileOutlined,
-  ReloadOutlined,
   SendOutlined,
   EditOutlined,
   DeleteOutlined,
-  MoreOutlined,
 } from "@ant-design/icons";
 
 function Sidebar() {
-  const navigate = useNavigate();
+  const [sidebar, setSidebar] = useState(false);
+
+  const showSidebar = () => setSidebar(!sidebar);
 
   return (
     <div className="sidebar">
-      <Link to="/compose" className="sidebar-link">
-        <ComposeWrapper>
-          <ButtonWrapper>
-            <EditOutlined />
-            <p>Compose</p>
-          </ButtonWrapper>
-        </ComposeWrapper>
-      </Link>
-      <Link to="/" className="sidebar-link">
-        <SidebarOption Icon={InboxOutlined} title="Inbox" selected={true} />
-      </Link>
-      <Link to="/sent" className="sidebar-link">
-        <SidebarOption Icon={SendOutlined} title="Sent" number={""} />
-      </Link>
-      <Link to="/draft" className="sidebar-link">
-        <SidebarOption Icon={FileOutlined} title="Drafts" number={""} />
-      </Link>
-      <Link to="/trash" className="sidebar-link">
-        <SidebarOption Icon={DeleteOutlined} title="Trash" />
-      </Link>
+      <LogoWrapper>
+        <Menu>
+          <MenuOutlined onClick={showSidebar} />
+        </Menu>
+      </LogoWrapper>
+      <div className={sidebar ? "nav-menu" : "nav-menu active"}>
+        <Link to="/compose" className="sidebar-link">
+          <ComposeWrapper>
+            <ButtonWrapper>
+              <EditOutlined />
+              <p>Compose</p>
+            </ButtonWrapper>
+          </ComposeWrapper>
+        </Link>
+        <Link to="/" className="sidebar-link">
+          <SidebarOption Icon={InboxOutlined} title="Inbox" selected={true} />
+        </Link>
+        <Link to="/sent" className="sidebar-link">
+          <SidebarOption Icon={SendOutlined} title="Sent" number={""} />
+        </Link>
+        <Link to="/draft" className="sidebar-link">
+          <SidebarOption Icon={FileOutlined} title="Drafts" number={""} />
+        </Link>
+        <Link to="/trash" className="sidebar-link">
+          <SidebarOption Icon={DeleteOutlined} title="Trash" />
+        </Link>
+      </div>
     </div>
   );
 }
@@ -50,6 +57,23 @@ export default Sidebar;
 //   border-right: 1px solid lightgray;
 //   height: 100vh;
 // `;
+
+const LogoWrapper = styled.div`
+  height: 65px:
+  // display: grid;
+  // grid-template-columns: 25% auto;
+  
+  
+  `;
+
+const Menu = styled.div`
+  height: 65px:
+  display: grid;
+  place-items: start;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+`;
 
 const ComposeWrapper = styled.div`
   display: grid;

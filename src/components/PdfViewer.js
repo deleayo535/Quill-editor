@@ -8,7 +8,6 @@ import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { PaperClipOutlined } from "@ant-design/icons";
 import LoadingSpinner from "./Atom/LoadingSpinner";
-import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 // interface PdfViewProps {
@@ -17,18 +16,19 @@ import "react-circular-progressbar/dist/styles.css";
 
 const PdfView = ({ files }) => {
   const [shown, setShown] = useState(false);
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [url, setUrl] = React.useState("");
   const [showModal, setShowModal] = useState(false);
   const [images, setImages] = useState([]);
 
   const onChange = (e) => {
     //if pdf or image
-    // setIsLoading(true);
+    setIsLoading(true);
     setImages([...e.target.files]);
     files = e.target.files;
     files.length > 0 && setUrl(URL.createObjectURL(files[0]));
     // setImages([]);
+    setIsLoading(false);
 
     console.log(e.target.files);
   };
@@ -105,8 +105,6 @@ const PdfView = ({ files }) => {
     hiddenFileInput.current.click();
   };
 
-  const percentage = 4;
-
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <div>
@@ -114,6 +112,7 @@ const PdfView = ({ files }) => {
           <PaperClipOutlined onClick={handleClick} style={{ width: "100%" }} />
         </Attachment>
         <input
+          // disabled={isLoading}
           type="file"
           id="file"
           name="file"
@@ -124,6 +123,7 @@ const PdfView = ({ files }) => {
           style={{ display: "none" }}
         />
       </div>
+      {isLoading ? <LoadingSpinner /> : <></>}
       <button
         style={{
           backgroundColor: "#f1f3f4",

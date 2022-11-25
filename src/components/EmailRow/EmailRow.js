@@ -1,22 +1,24 @@
 // import { Checkbox, IconButton } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import "./EmailRow.css";
 import { useNavigate } from "react-router-dom";
 import { selectMail } from "../../features/mailSlice";
 import { useDispatch } from "react-redux";
 
 function EmailRow({ id, title, subject, description, time }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
 
   const openMail = () => {
-    selectMail({
-      // id,
-      title,
-      subject,
-      description,
-      time,
-    });
+    dispatch(
+      selectMail({
+        id,
+        title,
+        subject,
+        description,
+        time,
+      })
+    );
     navigate("/mail");
   };
 

@@ -3,13 +3,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-// import Upload from "./Uploader";
 import PdfView from "./PdfViewer";
-// import { Modal } from "./ImgModal";
 import "./Img.css";
-// import ImgViewer from "./ImgViewer";
-// import { Button } from "./Atom/Button";
-// import { Image } from "./Atom/Image";
+import Form from "./FormFile";
+import UploadFiles from "./FormFile";
 
 export function QuillEdit() {
   const [inboxs, setPosts] = useState([]);
@@ -104,34 +101,43 @@ export function QuillEdit() {
   // const [isHovering, setIsHovering] = useState(false);
 
   return (
-    <MailContainer>
-      <EditorContainer>
-        {/* <input
-          value={postForm.subject}
-          disabled={selectedPost}
-          placeholder="Title"
-          onChange={onChangeTitleHandler}
-        /> */}
-        <ReactQuill
-          theme="snow"
-          // className={`ql-toolbar.disabled${!selectedPost ? true : false}`}
-          // readOnly={selectedPost}
-          // value={postForm.subject}
-          placeholder="Type Something"
-          modules={modules}
-          // toolbar={`${selectedPost ? true : false}`}
-          // formats={`${!selectedPost ? true : false}`}
-          // modules={modules`${!selectedPost ? true : false}`}
-          formats={formats}
-          // readOnly="true"
-          // onChange={onChangeEditorHandler}
-        />
-        <PdfView />
-      </EditorContainer>
-    </MailContainer>
+    <EditContainer>
+      <MailContainer>
+        <EditorContainer>
+          <input
+            // value={postForm.subject}
+            // disabled={selectedPost}
+            placeholder="Title"
+            // onChange={onCh/angeTitleHandler}
+          />
+          <ReactQuill
+            theme="snow"
+            // className={`ql-toolbar.disabled${!selectedPost ? true : false}`}
+            // readOnly={selectedPost}
+            // value={postForm.subject}
+            placeholder="Type Something"
+            modules={modules}
+            // toolbar={`${selectedPost ? true : false}`}
+            // formats={`${!selectedPost ? true : false}`}
+            // modules={modules`${!selectedPost ? true : false}`}
+            formats={formats}
+            // readOnly="true"
+            // onChange={onChangeEditorHandler}
+          />
+        </EditorContainer>
+      </MailContainer>
+      {/* <UploadFiles /> */}
+      {/* <Form /> */}
+      <PdfView />
+    </EditContainer>
   );
 }
+const EditContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const MailContainer = styled.div`
+  flex-direction: column;
   display: flex;
   // margin: 20px;
   height: 400px;
@@ -147,8 +153,8 @@ const EditorContainer = styled.div`
   > input {
     border: none;
     outline: none;
-    padding: 18px;
-    font-size: 2em;
+    // padding: 18px;
+    font-size: 1.5em;
 
     &:disabled {
       background: transparent;
@@ -156,21 +162,11 @@ const EditorContainer = styled.div`
     }
   }
 
-  .ql-toolbar {
-    // display: none;
-    &:disabled {
-      display: none;
-    }
-  }
-  .ql-container {
-    // border: 0.5px solid;
-  }
-
   .quill,
   .ql-container {
+    border: none;
     font-size: 1em;
-    height: 300px;
-    // cursor: pointer;
+    height: 200px;
 
     .ql-editor {
       cursor: pointer;

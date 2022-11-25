@@ -1,5 +1,6 @@
 export const emailData = [
   {
+    id: 1,
     starred: true,
     from: "Naz",
     subject: "Yoooo",
@@ -8,6 +9,8 @@ export const emailData = [
     read: true,
   },
   {
+    id: 2,
+
     starred: true,
     from: "Quaz",
     subject: "Yoooo",
@@ -16,6 +19,7 @@ export const emailData = [
     read: true,
   },
   {
+    id: 3,
     starred: true,
     from: "Dumansky",
     subject: "Yoooo",

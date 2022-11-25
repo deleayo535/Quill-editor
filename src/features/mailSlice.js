@@ -18,7 +18,6 @@ export const mailSlice = createSlice({
     // },
   },
 });
-// export const { increment, decrement, incrementByAmount } = mailSlice.action;
 
 export const { selectMail } = mailSlice.actions;
 

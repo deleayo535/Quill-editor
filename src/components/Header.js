@@ -21,7 +21,7 @@ export function Header() {
         <SearchBarWrapper>
           <SearchOutlined />
           <input type="text" placeholder="Search mail" />
-          <DownOutlined />
+          {/* <DownOutlined /> */}
         </SearchBarWrapper>
       </SearchWrapper>
 
@@ -35,9 +35,12 @@ export function Header() {
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 270px auto 170px;
+  grid-template-columns: 0px auto 170px;
   border-bottom: 1px solid lightgrey;
   height: 70px;
+  width: 80%;
+  position: relative;
+  left: 240px;
   align-items: center;
 `;
 
@@ -51,7 +54,8 @@ const LogoWrapper = styled.div`
 
 const Menu = styled.div`
   display: grid;
-  place-items: center;
+  place-items: start;
+  padding-left: 20px;
 `;
 
 const Logo = styled.div`
