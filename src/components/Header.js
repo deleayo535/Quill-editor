@@ -38,7 +38,7 @@ const Wrapper = styled.div`
   grid-template-columns: 0px auto 170px;
   border-bottom: 1px solid lightgrey;
   height: 70px;
-  width: 80%;
+  width: 79%;
   position: relative;
   left: 240px;
   align-items: center;
