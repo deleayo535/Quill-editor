@@ -6,22 +6,19 @@ import { selectMail } from "../../features/mailSlice";
 import { useDispatch } from "react-redux";
 
 function EmailRow({ id, title, subject, description, time }) {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const [view, setView] = useState(INBOX);
-  // useEffect(() => {
 
-  // }, []);
   const openMail = () => {
-    // dispatch(
-    selectMail({
-      id,
-      title,
-      subject,
-      description,
-      time,
-    });
-    // );
+    dispatch(
+      selectMail({
+        id,
+        title,
+        subject,
+        description,
+        time,
+      })
+    );
     navigate("/mail");
   };
 

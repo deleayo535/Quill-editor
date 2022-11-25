@@ -105,8 +105,6 @@ const PdfView = ({ files }) => {
     hiddenFileInput.current.click();
   };
 
-  const percentage = 4;
-
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <div>
