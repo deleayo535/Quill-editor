@@ -1,12 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import ReactDom from "react-dom";
+
 export const Modal = ({ setShowModal, images }) => {
-  // const [images, setImages] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
   // const [showModal, setShowModal] = useState(false);
 
-  // const pdfFile = props.pdfFile;
-  // if (pdfFile)
   useEffect(() => {
     // images = e.target.files;
     // images.length > 0 && setImageURLs(URL.createObjectURL(images));
@@ -31,8 +29,6 @@ export const Modal = ({ setShowModal, images }) => {
             <img
               src={imageSrc}
               style={{
-                // display: "flex",
-                // flexDirection: "column",
                 paddingBottom: "40px",
                 width: "80%",
                 height: "60%",

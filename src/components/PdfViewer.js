@@ -22,16 +22,38 @@ const PdfView = ({ files }) => {
   const [showModal, setShowModal] = useState(false);
 
   const onChange = (e) => {
-    //if pdf or image
     // setIsLoading(true);
-    setImages([...e.target.files]);
-    files = e.target.files;
-    files.length > 0 && setUrl(URL.createObjectURL(files[0]));
-    // setImages([]);
-    setIsLoading(false);
+    // if (!e.files[0].name.match(/\.(jpg|jpeg|png|gif)$/i)) alert("not an image");
+    //1. if pdf or image
 
-    console.log(isLoading);
-    console.log(e.target.files);
+    files = e.target.files;
+    const file = files[0];
+    const type = file.name;
+    // console.log({ type, name });
+    // switch (url || images) {
+    //   case url:
+    //     type.match(/\.(jpg|jpeg|png|gif)$/i);
+    //     setImages([...e.target.files]);
+    //     setImages([]);
+    //     break;
+    //   case images:
+    //     type.match(/\.(application|pdf)$/i);
+    //     files.length > 0 && setUrl(URL.createObjectURL(files[0]));
+    //     break;
+    // }
+    if (type.match(/\.(application|pdf)$/i)) {
+      files.length > 0 && setUrl(URL.createObjectURL(files[0]));
+      // setImages([]);
+    } else if (type.match(/\.(jpg|jpeg|png|gif)$/i)) {
+      setImages((prev) => [...prev, ...e.target.files]);
+    } else {
+      // setShowModal(false);
+      // setShown(false);
+    }
+
+    console.log(type);
+    //2. set state accordingly
+    setIsLoading(false);
   };
 
   const modalBody = () => (
@@ -95,12 +117,12 @@ const PdfView = ({ files }) => {
 
   const openPdf = () => {
     setShown(true);
-    // setShowModal(false);
+    setShowModal(false);
   };
 
   const openImages = () => {
-    // setShown(false);
     setShowModal(true);
+    setShown(false);
   };
 
   const hiddenFileInput = React.useRef(null);
@@ -112,13 +134,6 @@ const PdfView = ({ files }) => {
     // setIsLoading(false);
   };
 
-  const switchModal = (url, images) => {
-    if (openPdf(true)) return;
-  };
-
-  // const URL = url;
-  // const IMAGE = images;
-
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <div>
@@ -126,7 +141,6 @@ const PdfView = ({ files }) => {
           <PaperClipOutlined onClick={handleClick} style={{ width: "100%" }} />
         </Attachment>
         <input
-          // disabled={isLoading}
           type="file"
           id="file"
           name="file"
@@ -138,40 +152,39 @@ const PdfView = ({ files }) => {
         />
       </div>
       {isLoading ? <LoadingSpinner /> : <></>}
-      <button
-        style={{
-          backgroundColor: "#f1f3f4",
-          border: "1px solid",
-          borderRadius: "20px",
-          color: "black",
-          cursor: "pointer",
-          padding: "3px 4px",
-        }}
-        // disabled={isLoading}
-        onClick={() => {
-          switch (images) {
-            case images:
-              openImages(true);
-              openPdf(false);
-              // setShown(true);
-              // setShowModal(false);
-              break;
-            // case url:
-            //   openPdf(true);
-            //   openImages(false);
-            //   // setShown(false);||
-            //   // setShowModal(true);
-            //   break;
-            // default:
-            //   setShowModal(false);
-            //   setShown(false);
-          }
-        }}
-      >
-        Preview
-      </button>
+      {/* {images && } */}
+      {url ? (
+        <button
+          style={{
+            backgroundColor: "#f1f3f4",
+            border: "1px solid",
+            borderRadius: "20px",
+            color: "black",
+            cursor: "pointer",
+            padding: "3px 4px",
+          }}
+          onClick={openPdf}
+        >
+          Preview Pdf
+        </button>
+      ) : (
+        <button
+          style={{
+            backgroundColor: "#f1f3f4",
+            border: "1px solid",
+            borderRadius: "20px",
+            color: "black",
+            cursor: "pointer",
+            padding: "3px 4px",
+          }}
+          onClick={openImages}
+        >
+          Preview
+        </button>
+      )}
+
       {showModal && <Modal images={images} setShowModal={setShowModal} />}
-      {/* {shown && ReactDOM.createPortal(modalBody(), document.body)} */}
+      {shown && ReactDOM.createPortal(modalBody(), document.body)}
     </div>
   );
 };
