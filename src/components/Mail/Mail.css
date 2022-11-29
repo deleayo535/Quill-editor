@@ -5,16 +5,20 @@
 
 .mail-tools {
   display: flex;
+  flex-direction: column;
+  padding: 4px;
   justify-content: space-between;
   background-color: white;
 }
 
 .mail-toolsLeft {
   display: flex;
+  justify-content: space-between;
 }
 
 .mail-body {
   display: flex;
+  flex-direction: column;
   flex-direction: column;
   margin: 10px;
   background-color: white;

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./EmailList.css";
-// import Section from "../Section/Section";
 import EmailRow from "../EmailRow/EmailRow";
 import { emailData } from "../temp/EmailData";
 
@@ -14,10 +13,9 @@ function EmailList() {
       <div className="emailList-sections"></div>
 
       <div className="emailList-list">
-        {emailData.map(({ from, subject, message, received }) => (
+        {emailData.map(({ id, from, subject, message, received }) => (
           <EmailRow
-            // id={id}
-            // key={id}/
+            key={id}
             title={from}
             subject={subject}
             description={message}
@@ -25,9 +23,9 @@ function EmailList() {
           />
         ))}
         <EmailRow
-          title="Twitch"
+          title="Test"
           subject="Hey fellows!!"
-          description="This is a DOPE"
+          description="This is a DONE"
           time=""
         />
       </div>

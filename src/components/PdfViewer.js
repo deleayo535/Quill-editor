@@ -15,21 +15,22 @@ import "react-circular-progressbar/dist/styles.css";
 // }
 
 const PdfView = ({ files }) => {
-  const [shown, setShown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [url, setUrl] = React.useState("");
-  const [showModal, setShowModal] = useState(false);
+  const [shown, setShown] = useState(false);
   const [images, setImages] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   const onChange = (e) => {
     //if pdf or image
-    setIsLoading(true);
+    // setIsLoading(true);
     setImages([...e.target.files]);
     files = e.target.files;
     files.length > 0 && setUrl(URL.createObjectURL(files[0]));
     // setImages([]);
     setIsLoading(false);
 
+    console.log(isLoading);
     console.log(e.target.files);
   };
 
@@ -94,16 +95,29 @@ const PdfView = ({ files }) => {
 
   const openPdf = () => {
     setShown(true);
+    // setShowModal(false);
   };
+
   const openImages = () => {
+    // setShown(false);
     setShowModal(true);
   };
 
   const hiddenFileInput = React.useRef(null);
 
   const handleClick = (event) => {
+    setIsLoading(true);
+
     hiddenFileInput.current.click();
+    // setIsLoading(false);
   };
+
+  const switchModal = (url, images) => {
+    if (openPdf(true)) return;
+  };
+
+  // const URL = url;
+  // const IMAGE = images;
 
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
@@ -129,47 +143,35 @@ const PdfView = ({ files }) => {
           backgroundColor: "#f1f3f4",
           border: "1px solid",
           borderRadius: "20px",
-          // borderRadius: ".10rem",
           color: "black",
           cursor: "pointer",
           padding: "3px 4px",
-          // padding: ".5rem",
         }}
         // disabled={isLoading}
         onClick={() => {
-          switch (url || images) {
-            case url:
-              openImages(false);
-              openPdf(true);
-              break;
+          switch (images) {
             case images:
               openImages(true);
               openPdf(false);
+              // setShown(true);
+              // setShowModal(false);
               break;
-            // default:
+            // case url:
+            //   openPdf(true);
             //   openImages(false);
-            //   openPdf(false);
+            //   // setShown(false);||
+            //   // setShowModal(true);
+            //   break;
+            // default:
+            //   setShowModal(false);
+            //   setShown(false);
           }
-          // if (setShown) {
-          //   openPdf();
-          //   openImages(false);
-          // } else if (setImages) {
-          //   openImages();
-          //   openPdf(false);
-          // } else {
-          // }
         }}
       >
         Preview
       </button>
-      {/* {shown ? (
-        ReactDOM.createPortal(modalBody(), document.body)
-        ) : showModal ? (
-          <Modal images={images} setShowModal={setShowModal} />
-        ) : null} */}
-      {/* {isLoading ? <CircularProgressbar value={percentage} text={`${percentage}%`} /> :( */}
       {showModal && <Modal images={images} setShowModal={setShowModal} />}
-      {shown && ReactDOM.createPortal(modalBody(), document.body)}
+      {/* {shown && ReactDOM.createPortal(modalBody(), document.body)} */}
     </div>
   );
 };
