@@ -1,14 +1,25 @@
 import React from "react";
 import "./Mail.css";
 import { useNavigate } from "react-router-dom";
-import { selectOpenMail } from "../../features/mailSlice";
-import { useSelector } from "react-redux";
-import { InboxOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+import {
+  selectOpenMail,
+  deleteMessage,
+  removeMessage,
+} from "../../features/mailSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { DeleteOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 
 function Mail() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const selectedMail = useSelector(selectOpenMail);
+  // const deletingMail = useSelector(removeMessage);
+
+  const deleteMail = (id) => {
+    dispatch(deleteMessage(id));
+    navigate("/");
+  };
 
   return (
     <div className="mail">
@@ -16,7 +27,7 @@ function Mail() {
         <div className="mail-toolsLeft">
           <ArrowLeftOutlined onClick={() => navigate("/")} />
 
-          <InboxOutlined />
+          <DeleteOutlined onClick={() => deleteMail()} />
         </div>
       </div>
       <div className="mail-body">

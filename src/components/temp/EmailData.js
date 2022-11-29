@@ -10,7 +10,6 @@ export const emailData = [
   },
   {
     id: 2,
-
     starred: true,
     from: "Quaz",
     subject: "Yoooo",

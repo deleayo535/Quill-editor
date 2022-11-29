@@ -4,6 +4,7 @@ import "./EmailRow.css";
 import { useNavigate } from "react-router-dom";
 import { selectMail } from "../../features/mailSlice";
 import { useDispatch } from "react-redux";
+import { DeleteOutlined } from "@ant-design/icons";
 
 function EmailRow({ id, title, subject, description, time }) {
   const dispatch = useDispatch();
@@ -22,6 +23,15 @@ function EmailRow({ id, title, subject, description, time }) {
     navigate("/mail");
   };
 
+  // const deleteMail = () => {
+  //   dispatch(
+  //     selectMail({
+  //       id,
+  //     })
+  //   );
+  //   navigate("/");
+  // };
+
   return (
     <div onClick={openMail} className="emailRow">
       <div className="emailRow-options"></div>
@@ -34,6 +44,7 @@ function EmailRow({ id, title, subject, description, time }) {
         </h4>
       </div>
       <p className="emailRow-time">{time}</p>
+      {/* <DeleteOutlined onClick={deleteMail} /> */}
     </div>
   );
 }

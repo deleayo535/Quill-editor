@@ -62,12 +62,11 @@ const LogoWrapper = styled.div`
   height: 65px:
   // display: grid;
   // grid-template-columns: 25% auto;
-  
-  
   `;
 
 const Menu = styled.div`
   height: 65px:
+  // position: fixed;
   display: grid;
   place-items: start;
   padding-left: 20px;
