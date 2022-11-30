@@ -1,54 +1,36 @@
-// import React, { useState, useRef } from "react";
-// import { usePdf } from "@mikecousins/react-pdf";
 import { Worker, Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "./ImgModal";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { PaperClipOutlined } from "@ant-design/icons";
 import LoadingSpinner from "./Atom/LoadingSpinner";
-import "react-circular-progressbar/dist/styles.css";
-
-// interface PdfViewProps {
-//   fileUrl: string;
-// }
 
 const PdfView = ({ files }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [url, setUrl] = React.useState("");
+  const [url, setUrl] = useState("");
   const [shown, setShown] = useState(false);
   const [images, setImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
   const onChange = (e) => {
+    e.preventDefault();
     // setIsLoading(true);
     // if (!e.files[0].name.match(/\.(jpg|jpeg|png|gif)$/i)) alert("not an image");
     //1. if pdf or image
-
     files = e.target.files;
     const file = files[0];
     const type = file.name;
+    let pdfFile = type.match(/\.(application|pdf)$/i);
+    let imageFile = type.match(/\.(jpg|jpeg|png|gif)$/i);
     // console.log({ type, name });
-    // switch (url || images) {
-    //   case url:
-    //     type.match(/\.(jpg|jpeg|png|gif)$/i);
-    //     setImages([...e.target.files]);
-    //     setImages([]);
-    //     break;
-    //   case images:
-    //     type.match(/\.(application|pdf)$/i);
-    //     files.length > 0 && setUrl(URL.createObjectURL(files[0]));
-    //     break;
-    // }
-    if (type.match(/\.(application|pdf)$/i)) {
+    if (pdfFile) {
       files.length > 0 && setUrl(URL.createObjectURL(files[0]));
-      // setImages([]);
-    } else if (type.match(/\.(jpg|jpeg|png|gif)$/i)) {
-      setImages((prev) => [...prev, ...e.target.files]);
+    } else if (imageFile) {
+      setImages([...e.target.files]);
     } else {
-      // setShowModal(false);
-      // setShown(false);
+      e.Default();
     }
 
     console.log(type);
@@ -127,7 +109,7 @@ const PdfView = ({ files }) => {
 
   const hiddenFileInput = React.useRef(null);
 
-  const handleClick = (event) => {
+  const handleClick = () => {
     setIsLoading(true);
 
     hiddenFileInput.current.click();
@@ -152,7 +134,22 @@ const PdfView = ({ files }) => {
         />
       </div>
       {isLoading ? <LoadingSpinner /> : <></>}
-      {/* {images && } */}
+      {/* {url && (
+        <button
+          style={{
+            backgroundColor: "#f1f3f4",
+            border: "1px solid",
+            borderRadius: "20px",
+            color: "black",
+            cursor: "pointer",
+            padding: "3px 4px",
+          }}
+          onClick={openPdf}
+          className={btnName}
+        >
+          Preview Pdf
+        </button>
+      )} */}
       {url ? (
         <button
           style={{
@@ -165,7 +162,7 @@ const PdfView = ({ files }) => {
           }}
           onClick={openPdf}
         >
-          Preview Pdf
+          Preview
         </button>
       ) : (
         <button
@@ -182,6 +179,7 @@ const PdfView = ({ files }) => {
           Preview
         </button>
       )}
+      {/* <div>{files.name}</div> */}
 
       {showModal && <Modal images={images} setShowModal={setShowModal} />}
       {shown && ReactDOM.createPortal(modalBody(), document.body)}
