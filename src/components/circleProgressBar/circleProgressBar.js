@@ -7,7 +7,7 @@ const CircleProgressBar = styled(CircleProgressBarBase)`
   max-width: ${(props) => props.maxSize};
   vertical-align: middle;
   margin: 0 auto;
-  padding-top: 40px;
+  padding-top: 10px;
   .chart-text {
     fill: ${(props) => props.textColor};
     transform: translateY(0.25em);
@@ -55,8 +55,9 @@ CircleProgressBar.propTypes = {
 
 CircleProgressBar.defaultProps = {
   textColor: "black",
-  strokeColor: "#ff9f00",
-  maxSize: "150px",
+  // strokeColor: "#ff9f00",
+  strokeColor: "grey",
+  maxSize: "50px",
 };
 
 export default CircleProgressBar;
