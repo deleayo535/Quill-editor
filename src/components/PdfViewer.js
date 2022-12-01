@@ -6,17 +6,46 @@ import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { PaperClipOutlined } from "@ant-design/icons";
 import LoadingSpinner from "./Atom/LoadingSpinner";
+import axios from "axios";
+
+import percentLoader, {
+  LoaderPercentProgressContainer,
+} from "./loaderComponent";
 
 const PdfView = ({ files }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [url, setUrl] = useState("");
-  const [shown, setShown] = useState(false);
-  const [images, setImages] = useState([]);
+  const [images, setImages] = React.useState([]);
+  const [url, setUrl] = React.useState("");
   const [showModal, setShowModal] = useState(false);
+  const [shown, setShown] = useState(false);
+
+  // useEffect(() => {
+  //   percentLoader.open({ percentage: 90, speed: 80 });
+  // });
+
+  const onUploadFile = (file) => {
+    const formData = new FormData();
+    formData.append("filename", file);
+    formData.append("name", "test");
+    axios
+      .post("https://v2.convertapi.com/upload", formData, {
+        onUploadProgress: (progressEvent) => {
+          const percentage = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          percentLoader.open({ percentage, speed: 80 });
+        },
+      })
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((error) => console.log(error));
+  };
 
   const onChange = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     // setIsLoading(true);
+
     // if (!e.files[0].name.match(/\.(jpg|jpeg|png|gif)$/i)) alert("not an image");
     //1. if pdf or image
     files = e.target.files;
@@ -25,18 +54,38 @@ const PdfView = ({ files }) => {
     let pdfFile = type.match(/\.(application|pdf)$/i);
     let imageFile = type.match(/\.(jpg|jpeg|png|gif)$/i);
     // console.log({ type, name });
+
+    onReset();
     if (pdfFile) {
       files.length > 0 && setUrl(URL.createObjectURL(files[0]));
+      setTimeout(() => {
+        onUploadFile(files[0]);
+      }, 700);
     } else if (imageFile) {
       setImages([...e.target.files]);
+      setTimeout(() => {
+        onUploadFile(files[0]);
+      }, 700);
     } else {
-      e.Default();
+      // e.Default();
     }
+
+    // const {
+    //   target: { files },
+    // } = e;
 
     console.log(type);
     //2. set state accordingly
     setIsLoading(false);
   };
+
+  const onReset = () => percentLoader.close();
+  // const onClickLoadPercent = (percentage) => {
+  //   onReset();
+  //   setTimeout(() => {
+  //     percentLoader.open({ percentage, speed: 10 });
+  //   }, 700);
+  // };
 
   const modalBody = () => (
     <div
@@ -100,11 +149,13 @@ const PdfView = ({ files }) => {
   const openPdf = () => {
     setShown(true);
     setShowModal(false);
+    percentLoader.close();
   };
 
   const openImages = () => {
     setShowModal(true);
     setShown(false);
+    percentLoader.close();
   };
 
   const hiddenFileInput = React.useRef(null);
@@ -117,73 +168,79 @@ const PdfView = ({ files }) => {
   };
 
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <div>
-        <Attachment>
-          <PaperClipOutlined onClick={handleClick} style={{ width: "100%" }} />
-        </Attachment>
-        <input
-          type="file"
-          id="file"
-          name="file"
-          accept="image/*,.pdf"
-          multiple
-          onChange={onChange}
-          ref={hiddenFileInput}
-          style={{ display: "none" }}
-        />
-      </div>
-      {isLoading ? <LoadingSpinner /> : <></>}
-      {/* {url && (
+    <React.Fragment>
+      <LoaderPercentProgressContainer />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <div>
+          <Attachment>
+            <PaperClipOutlined
+              onClick={handleClick}
+              style={{ width: "100%" }}
+            />
+          </Attachment>
+          <input
+            type="file"
+            id="file"
+            name="file"
+            accept="image/*,.pdf"
+            multiple
+            onChange={onChange}
+            ref={hiddenFileInput}
+            style={{ display: "none" }}
+          />
+        </div>
+        {/* {isLoading ? <LoadingSpinner /> : <></>} */}
+        {/* {url && (
         <button
-          style={{
-            backgroundColor: "#f1f3f4",
-            border: "1px solid",
-            borderRadius: "20px",
-            color: "black",
-            cursor: "pointer",
-            padding: "3px 4px",
-          }}
+        style={{
+          backgroundColor: "#f1f3f4",
+          border: "1px solid",
+          borderRadius: "20px",
+          color: "black",
+          cursor: "pointer",
+          padding: "3px 4px",
+        }}
           onClick={openPdf}
           className={btnName}
-        >
+          >
           Preview Pdf
-        </button>
-      )} */}
-      {url ? (
-        <button
-          style={{
-            backgroundColor: "#f1f3f4",
-            border: "1px solid",
-            borderRadius: "20px",
-            color: "black",
-            cursor: "pointer",
-            padding: "3px 4px",
-          }}
-          onClick={openPdf}
-        >
-          Preview
-        </button>
-      ) : (
-        <button
-          style={{
-            backgroundColor: "#f1f3f4",
-            border: "1px solid",
-            borderRadius: "20px",
-            color: "black",
-            cursor: "pointer",
-            padding: "3px 4px",
-          }}
-          onClick={openImages}
-        >
-          Preview
-        </button>
-      )}
-      {/* <div>{files.name}</div> */}
+          </button>
+        )} */}
+        {url ? (
+          <button
+            style={{
+              backgroundColor: "#f1f3f4",
+              border: "1px solid",
+              borderRadius: "20px",
+              color: "black",
+              cursor: "pointer",
+              padding: "3px 4px",
+            }}
+            onClick={openPdf}
+          >
+            Preview
+          </button>
+        ) : (
+          <button
+            style={{
+              backgroundColor: "#f1f3f4",
+              border: "1px solid",
+              borderRadius: "20px",
+              color: "black",
+              cursor: "pointer",
+              padding: "3px 4px",
+            }}
+            onClick={openImages}
+          >
+            Preview
+          </button>
+        )}
+        {/* <div>{files.name}</div> */}
 
-      {showModal && <Modal images={images} setShowModal={setShowModal} />}
-      {shown && ReactDOM.createPortal(modalBody(), document.body)}
-    </div>
+        {showModal && <Modal images={images} setShowModal={setShowModal} />}
+        {shown && ReactDOM.createPortal(modalBody(), document.body)}
+      </div>
+    </React.Fragment>
   );
 };
 
