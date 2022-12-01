@@ -3,7 +3,6 @@ import ReactDom from "react-dom";
 
 export const Modal = ({ setShowModal, images }) => {
   const [imageURLs, setImageURLs] = useState([]);
-  // const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     // images = e.target.files;
