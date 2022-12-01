@@ -70,22 +70,12 @@ const PdfView = ({ files }) => {
       // e.Default();
     }
 
-    // const {
-    //   target: { files },
-    // } = e;
-
     console.log(type);
     //2. set state accordingly
     setIsLoading(false);
   };
 
   const onReset = () => percentLoader.close();
-  // const onClickLoadPercent = (percentage) => {
-  //   onReset();
-  //   setTimeout(() => {
-  //     percentLoader.open({ percentage, speed: 10 });
-  //   }, 700);
-  // };
 
   const modalBody = () => (
     <div
@@ -169,7 +159,6 @@ const PdfView = ({ files }) => {
 
   return (
     <React.Fragment>
-      <LoaderPercentProgressContainer />
       <div style={{ display: "flex", alignItems: "center" }}>
         <div>
           <Attachment>
@@ -240,6 +229,7 @@ const PdfView = ({ files }) => {
         {showModal && <Modal images={images} setShowModal={setShowModal} />}
         {shown && ReactDOM.createPortal(modalBody(), document.body)}
       </div>
+      <LoaderPercentProgressContainer />
     </React.Fragment>
   );
 };

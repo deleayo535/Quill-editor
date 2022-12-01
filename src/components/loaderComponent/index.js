@@ -13,7 +13,7 @@ const PercentLoaderStyled = styled.div`
   /* position: fixed; */
   overflow: hidden;
   width: 5%;
-  height: 80px;
+  height: 75px;
   z-index: 999999;
 `;
 
@@ -55,7 +55,7 @@ const percentLoader = {
   },
   open: ({ children, percentage, speed, options }) => {
     const targetId = "percent-container";
-    const speedData = speed || 50;
+    const speedData = speed || 80;
     return render(
       <PercentLoader
         targetId={targetId}
