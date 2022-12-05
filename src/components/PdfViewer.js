@@ -23,10 +23,27 @@ const PdfView = ({ files }) => {
   //   percentLoader.open({ percentage: 90, speed: 80 });
   // });
 
-  const onUploadFile = (file) => {
+  const onUploadFile = (files) => {
+    // e.preventDefault();
     const formData = new FormData();
-    formData.append("filename", file);
-    formData.append("name", "test");
+    const request = new XMLHttpRequest();
+    // formData.append("file", images);
+    for (let i = 0; i < files.length; i++) {
+      formData.append(files[i].name, files[i]);
+    }
+
+    console.log(files);
+
+    request.onreadystatechange = () => {
+      if (request.readyState === 4 && request.status === 200) {
+        console.log(request.responseText);
+      }
+    };
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append(files[i].name, files[i]);
+    }
+
     axios
       .post("https://v2.convertapi.com/upload", formData, {
         onUploadProgress: (progressEvent) => {
@@ -48,7 +65,7 @@ const PdfView = ({ files }) => {
 
     // if (!e.files[0].name.match(/\.(jpg|jpeg|png|gif)$/i)) alert("not an image");
     //1. if pdf or image
-    files = e.target.files;
+    const files = e.target.files;
     const file = files[0];
     const type = file.name;
     let pdfFile = type.match(/\.(application|pdf)$/i);
@@ -59,18 +76,22 @@ const PdfView = ({ files }) => {
     if (pdfFile) {
       files.length > 0 && setUrl(URL.createObjectURL(files[0]));
       setTimeout(() => {
-        onUploadFile(files[0]);
+        onUploadFile(files);
       }, 700);
     } else if (imageFile) {
       setImages([...e.target.files]);
+      // setImages((prev) => [...prev, ...e.target.files]);
       setTimeout(() => {
-        onUploadFile(files[0]);
+        for (let i = 0; i < files.length; i++) {
+          // onReset(file);
+          onUploadFile(files);
+          // onReset();
+        }
       }, 700);
     } else {
       // e.Default();
     }
 
-    console.log(type);
     //2. set state accordingly
     setIsLoading(false);
   };
@@ -169,7 +190,8 @@ const PdfView = ({ files }) => {
           </Attachment>
           <input
             type="file"
-            id="file"
+            // id="file"
+            id="form"
             name="file"
             accept="image/*,.pdf"
             multiple
@@ -238,61 +260,5 @@ const Attachment = styled.div`
   width: 40px;
   // height: 60px;
 `;
-
-// const PdfView = ({ files }) => {
-//   const [url, setUrl] = React.useState("");
-
-//   // const fileInput = useRef(null);
-
-//   // Handle the `onChange` event of the `file` input
-//   const onChange = (e) => {
-//     files = e.target.files;
-//     files.length > 0 && setUrl(URL.createObjectURL(files[0]));
-//   };
-
-//   return (
-//     <div>
-//       <input
-//         type="file"
-//         id="file"
-//         name="file"
-//         accept=".pdf, .docx"
-//         multiple
-//         onChange={onChange}
-//       />
-//       {/* <input type="file" multiple accept=".pdf, .docx" onChange={onChange} /> */}
-
-//       <div style={{ height: "550px" }}>
-//         {url ? (
-//           <div
-//             style={{
-//               border: "1px solid rgba(0, 0, 0, 0.3)",
-//               height: "100%",
-//               // width: "70%",
-//             }}
-//           >
-//             <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js">
-//               <Viewer fileUrl={url} />
-//             </Worker>
-//           </div>
-//         ) : (
-//           <div
-//           // style={{
-//           //   alignItems: "center",
-//           //   border: "2px dashed rgba(0, 0, 0, .3)",
-//           //   display: "flex",
-//           //   fontSize: "2rem",
-//           //   height: "100%",
-//           //   justifyContent: "center",
-//           //   width: "100%",
-//           // }}
-//           >
-//             {/* Preview area */}
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
 
 export default PdfView;

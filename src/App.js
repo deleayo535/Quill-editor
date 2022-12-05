@@ -11,6 +11,7 @@ import Sent from "./components/MailContainer/Sent";
 import Draft from "./components/MailContainer/Draft";
 import Trash from "./components/MailContainer/Trash";
 import EmailList from "./components/EmailList/EmailList";
+import ImgViewer from "./components/ImgViewer";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="/trash" element={<Trash />} />
               {/* <Main /> */}
             </Routes>
+            {/* <ImgViewer /> */}
           </div>
         </div>
       </BrowserRouter>
