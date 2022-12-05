@@ -7,6 +7,7 @@ import PdfView from "./PdfViewer";
 import "./Img.css";
 import Form from "./FormFile";
 import UploadFiles from "./FormFile";
+import ImgViewer from "./ImgViewer";
 
 export function QuillEdit() {
   const [inboxs, setPosts] = useState([]);
@@ -101,35 +102,35 @@ export function QuillEdit() {
   // const [isHovering, setIsHovering] = useState(false);
 
   return (
-    <EditContainer>
-      <MailContainer>
-        <EditorContainer>
-          <input
-            // value={postForm.subject}
-            // disabled={selectedPost}
-            placeholder="Title"
-            // onChange={onCh/angeTitleHandler}
-          />
-          <ReactQuill
-            theme="snow"
-            // className={`ql-toolbar.disabled${!selectedPost ? true : false}`}
-            // readOnly={selectedPost}
-            // value={postForm.subject}
-            placeholder="Type Something"
-            modules={modules}
-            // toolbar={`${selectedPost ? true : false}`}
-            // formats={`${!selectedPost ? true : false}`}
-            // modules={modules`${!selectedPost ? true : false}`}
-            formats={formats}
-            // readOnly="true"
-            // onChange={onChangeEditorHandler}
-          />
-        </EditorContainer>
-      </MailContainer>
-      {/* <UploadFiles /> */}
-      {/* <Form /> */}
-      <PdfView />
-    </EditContainer>
+    <>
+      <EditContainer>
+        <MailContainer>
+          <EditorContainer>
+            <input
+              // value={postForm.subject}
+              // disabled={selectedPost}
+              placeholder="Title"
+              // onChange={onCh/angeTitleHandler}
+            />
+            <ReactQuill
+              theme="snow"
+              // className={`ql-toolbar.disabled${!selectedPost ? true : false}`}
+              // readOnly={selectedPost}
+              // value={postForm.subject}
+              placeholder="Type Something"
+              modules={modules}
+              // toolbar={`${selectedPost ? true : false}`}
+              // formats={`${!selectedPost ? true : false}`}
+              // modules={modules`${!selectedPost ? true : false}`}
+              formats={formats}
+              // readOnly="true"
+              // onChange={onChangeEditorHandler}
+            />
+          </EditorContainer>
+        </MailContainer>
+        <PdfView />
+      </EditContainer>
+    </>
   );
 }
 const EditContainer = styled.div`
