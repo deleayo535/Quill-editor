@@ -26,37 +26,30 @@ const PdfView = ({ files }) => {
   const onUploadFile = (files) => {
     // e.preventDefault();
     const formData = new FormData();
-    const request = new XMLHttpRequest();
     // formData.append("file", images);
-    for (let i = 0; i < files.length; i++) {
-      formData.append(files[i].name, files[i]);
-    }
+    // for (let i = 0; i < files.length; i++) {
+    //   formData.append(files[i].name, files[i]);
+    // }
 
     console.log(files);
 
-    request.onreadystatechange = () => {
-      if (request.readyState === 4 && request.status === 200) {
-        console.log(request.responseText);
-      }
-    };
-
     for (let i = 0; i < files.length; i++) {
       formData.append(files[i].name, files[i]);
-    }
 
-    axios
-      .post("https://v2.convertapi.com/upload", formData, {
-        onUploadProgress: (progressEvent) => {
-          const percentage = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          percentLoader.open({ percentage, speed: 80 });
-        },
-      })
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((error) => console.log(error));
+      axios
+        .post("https://v2.convertapi.com/upload", formData, {
+          onUploadProgress: (progressEvent) => {
+            const percentage = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            percentLoader.open({ percentage, speed: 80 });
+          },
+        })
+        .then((resp) => {
+          console.log(resp);
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   const onChange = (e) => {
@@ -80,16 +73,13 @@ const PdfView = ({ files }) => {
       }, 700);
     } else if (imageFile) {
       setImages([...e.target.files]);
-      // setImages((prev) => [...prev, ...e.target.files]);
-      setTimeout(() => {
-        for (let i = 0; i < files.length; i++) {
-          // onReset(file);
-          onUploadFile(files);
-          // onReset();
-        }
-      }, 700);
-    } else {
-      // e.Default();
+      // setTimeout(() => {
+      // for (let i = 0; i < files.length; i++) {
+      onUploadFile(files);
+      // onReset(file);
+      onReset();
+      // }
+      // }, 700);
     }
 
     //2. set state accordingly
