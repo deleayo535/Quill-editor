@@ -73,15 +73,13 @@ const PdfView = ({ files }) => {
       }, 700);
     } else if (imageFile) {
       setImages([...e.target.files]);
-      onUploadFile(files);
       // setTimeout(() => {
       // for (let i = 0; i < files.length; i++) {
+      onUploadFile(files);
       // onReset(file);
       onReset();
       // }
       // }, 700);
-    } else {
-      // e.Default();
     }
 
     //2. set state accordingly
